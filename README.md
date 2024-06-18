@@ -1,39 +1,15 @@
 # q-admin-template
 
-This template should help get you started developing with Vue 3 in Vite.
+# 图标方案
 
-## Recommended IDE Setup
+https://icones.js.org/collection/mdi
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+# 全局方案
 
-## Type Support for `.vue` Imports in TS
+## 1. rxjs
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+使用 rxjs 做事件总线
 
-## Customize configuration
+## 2. pinia
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+使用 pinia 做全局状态管理
