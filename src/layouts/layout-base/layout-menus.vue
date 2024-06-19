@@ -3,28 +3,30 @@
     <el-menu
       class="w-full !border-r-none"
       :collapse="isCollapse"
+      :default-active="defaultActive"
+      :default-openeds="defaultOpends"
       @open="handleOpen"
       @close="handleClose"
+      @select="handleSelect"
     >
-      <!-- <template v-for="item in menus">
-      <el-submenu v-if="item.children && item.children.length > 0" :index="item.index">
-        <template #title>
-          <i class="el-icon-menu"></i>{{ item.title }}
-        </template>
-        <el-menu-item v-for="child in item.children" :index="child.index" :key="child.index">{{ child.title }}</el-menu-item>
-      </el-submenu>
-      <el-menu-item v-else :index="item.index">{{ item.title }}</el-menu-item>
-    </template>
-         -->
-      上课上课
+      <menu-list v-model:menuList="menus" />
     </el-menu>
   </el-scrollbar>
 </template>
 
 <script setup lang="ts">
-const isCollapse = ref(false)
-function toggleCollapse() {
-  isCollapse.value = !isCollapse.value
+const route = useRoute()
+const router = useRouter()
+const menuStore = useMenuStore()
+const { menus, isCollapse } = storeToRefs(menuStore)
+const defaultActive = ref(route.name)
+const defaultOpends = ref([route.name])
+function handleSelect(index: string) {
+  if (isUrl(index)) {
+    window.open(index)
+  } else {
+    router.push({ name: index })
+  }
 }
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)

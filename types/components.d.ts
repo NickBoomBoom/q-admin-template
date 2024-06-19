@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    copy: typeof import('./../src/layouts/layout-base/layout-header copy.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
@@ -19,6 +20,7 @@ declare module 'vue' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
+    ElSubmenu: typeof import('element-plus/es')['ElSubmenu']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     HelloWorld: typeof import('./../src/components/HelloWorld.vue')['default']
     IconCommunity: typeof import('./../src/components/icons/IconCommunity.vue')['default']
@@ -29,8 +31,14 @@ declare module 'vue' {
     LayBase: typeof import('./../src/layouts/lay-base/index.vue')['default']
     LayMenu: typeof import('./../src/layouts/components/lay-menu/index.vue')['default']
     LayoutBase: typeof import('./../src/layouts/layout-base/index.vue')['default']
+    LayoutFooter: typeof import('./../src/layouts/layout-base/layout-footer.vue')['default']
+    LayoutHeader: typeof import('./../src/layouts/layout-base/layout-header.vue')['default']
     LayoutLogo: typeof import('./../src/layouts/layout-base/layout-logo.vue')['default']
     LayoutMenus: typeof import('./../src/layouts/layout-base/layout-menus.vue')['default']
+    LayoutTag: typeof import('./../src/layouts/layout-base/layout-tag.vue')['default']
+    MenuItem: typeof import('./../src/layouts/components/menu-item.vue')['default']
+    MenuList: typeof import('./../src/layouts/components/menu-list.vue')['default']
+    MiddleMenu: typeof import('./../src/layouts/components/middle-menu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TestView: typeof import('./../src/components/TestView/index.vue')['default']

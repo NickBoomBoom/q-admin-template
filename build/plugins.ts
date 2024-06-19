@@ -13,7 +13,8 @@ export const plugins = [
   oxlintPlugin(),
   AutoImport({
     dts: './types/auto-import.d.ts',
-    imports: ["vue", "vue-router"],
+    imports: ["vue", "vue-router", 'pinia'],
+    dirs: ['./src/stores', './src/services', './src/utils'],
     resolvers: [ElementPlusResolver()],
   }),
   Components({
