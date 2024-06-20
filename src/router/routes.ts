@@ -4,6 +4,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import dashboardRoutes from './modules/dashboard'
 import oneRoutes from './modules/one'
 import twoRoutes from './modules/two'
+import treeRoutes from './modules/tree'
 
 export const commonRoutes: RouteRecordRaw[] = [
   {
@@ -27,6 +28,8 @@ export const menuRoutes: RouteRecordRaw[] = [
   dashboardRoutes,
   oneRoutes,
   twoRoutes,
+  treeRoutes,
+
   {
     path: "https://www.google.com",
     meta: {

@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 export default {
-  path: "one",
+  path: "tree",
   meta: {
     title: "页面",
     icon: "i-mdi-office-building"
@@ -9,21 +9,19 @@ export default {
   children: [
     {
       path: 'index',
-      name: "One",
+      name: "Tree",
       meta: {
         title: '页面 1',
-        icon: "i-mdi-office-building"
-
+        icon: "i-mdi-office-building-outline"
       },
       component: () => import('../../pages/one/index.vue'),
     },
     {
       path: 'page1',
-      name: "OnePage1",
+      name: "TreePage1",
       meta: {
         title: '页面 2',
-        icon: "i-mdi-office-building"
-
+        icon: "i-mdi-office-building-outline"
       },
       component: () => import('../../pages/one-1/index.vue')
     }

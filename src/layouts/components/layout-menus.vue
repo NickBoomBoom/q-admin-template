@@ -19,8 +19,8 @@ const route = useRoute()
 const router = useRouter()
 const menuStore = useMenuStore()
 const { menus, isCollapse } = storeToRefs(menuStore)
-const defaultActive = ref(route.name)
-const defaultOpends = ref([route.name])
+const defaultActive = ref<string>(route.name as string)
+const defaultOpends = ref<string[]>([route.name as string])
 function handleSelect(index: string) {
   if (isUrl(index)) {
     window.open(index)
