@@ -1,17 +1,17 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 export default {
-  path: "one",
+  path: "page1",
   meta: {
-    title: "页面",
+    title: "页面1",
     icon: "i-mdi-office-building"
   },
   children: [
     {
-      path: 'index',
-      name: "One",
+      path: 'page1-1',
+      name: "Page1-1",
       meta: {
-        title: '页面 1',
+        title: '页面1',
         icon: "i-mdi-office-building"
 
       },
