@@ -8,24 +8,51 @@ export default {
   },
   children: [
     {
+      path: 'index',
+      name: "Page1index",
+      meta: {
+        title: '页面1首页',
+        icon: "i-mdi-office-building"
+
+      },
+      component: () => import('../../pages/page1/index.vue'),
+    },
+    {
       path: 'page1-1',
       name: "Page1-1",
       meta: {
-        title: '页面1',
+        title: '页面1-1',
         icon: "i-mdi-office-building"
 
       },
-      component: () => import('../../pages/one/index.vue'),
-    },
-    {
-      path: 'page1',
-      name: "OnePage1",
-      meta: {
-        title: '页面 2',
-        icon: "i-mdi-office-building"
+      children: [
+        {
+          path: "index",
+          name: "Page1-1-one-index",
+          meta: {
+            title: "页面 1-1 首页",
+          },
+          component: () => import('../../pages/page1/page1-1/index.vue')
+        },
+        {
+          path: '-1',
+          name: "Page1-1-1",
+          meta: {
+            title: "页面 1-1-1"
+          },
+          children: [
 
-      },
-      component: () => import('../../pages/one-1/index.vue')
+            {
+              path: "index",
+              name: "Page1-1-1index",
+              meta: {
+                title: "页面 1-1-1 首页",
+              },
+              component: () => import('../../pages/page1/page1-1/page1-1-1/index.vue')
+            },
+          ]
+        }
+      ]
     }
   ]
 } as RouteRecordRaw

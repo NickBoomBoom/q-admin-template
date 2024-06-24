@@ -9,12 +9,12 @@
         <layout-header />
         <layout-tag />
       </el-header>
-      <el-main>
+      <el-main style="border: 1px solid red">
         <RouterView v-slot="{ Component, route }">
           <KeepAlive>
-            <component :is="Component" :key="route.fullPath" />
+            <component v-if="!route.meta.noCache" :is="Component" :key="route.fullPath" />
           </KeepAlive>
-          <component :is="Component" />
+          <component v-if="route.meta.noCache" :is="Component" />
         </RouterView>
       </el-main>
       <el-footer>

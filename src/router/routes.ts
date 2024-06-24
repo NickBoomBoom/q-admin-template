@@ -2,9 +2,7 @@ import LayoutBase from '@layouts/layout-base/index.vue'
 import type { RouteRecordRaw } from 'vue-router'
 
 import dashboardRoutes from './modules/dashboard'
-import oneRoutes from './modules/one'
-import twoRoutes from './modules/two'
-import treeRoutes from './modules/tree'
+import page1Routes from './modules/page1'
 
 export const commonRoutes: RouteRecordRaw[] = [
   {
@@ -26,9 +24,7 @@ export const commonRoutes: RouteRecordRaw[] = [
 
 export const menuRoutes: RouteRecordRaw[] = [
   dashboardRoutes,
-  oneRoutes,
-  twoRoutes,
-  treeRoutes,
+  page1Routes,
 
   {
     path: "https://www.google.com",
