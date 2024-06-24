@@ -32,8 +32,8 @@ import type { RouteLocationNormalized } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
-const tagStore = useTagStore()
-const { tags } = storeToRefs(tagStore)
+const globalStore = useGlobalStore()
+const { tags } = storeToRefs(globalStore)
 
 const isOnlyOne = computed(() => {
   return tags.value.length === 1
@@ -44,7 +44,7 @@ function isCurrent(item: RouteLocationNormalized) {
 }
 
 function handleDeleteTag(r: RouteLocationNormalized) {
-  tagStore.handleTag('delete', r)
+  globalStore.handleTag('delete', r)
 }
 
 function handleRefreshTag(r: RouteLocationNormalized) {}

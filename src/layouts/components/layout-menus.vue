@@ -16,9 +16,9 @@
 <script setup lang="ts">
 const route = useRoute()
 const router = useRouter()
-const menuStore = useMenuStore()
+const globalStore = useGlobalStore()
 const menuRef = ref()
-const { menus, isCollapse } = storeToRefs(menuStore)
+const { menus, isCollapse } = storeToRefs(globalStore)
 const defaultActive = ref<string>(route.name as string)
 const defaultOpends = ref<string[]>([route.name as string])
 

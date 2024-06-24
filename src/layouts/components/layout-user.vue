@@ -28,8 +28,8 @@ enum UserCommand {
   CHANGE_PWD,
   LOGOUT
 }
-const userStore = useUserStore()
-const { user } = storeToRefs(userStore)
+const globalStore = useGlobalStore()
+const { user } = storeToRefs(globalStore)
 const name = computed(() => {
   const { nickname, username } = user.value
   return username || nickname
@@ -53,7 +53,7 @@ function handleUserCommand(command: number) {
       console.log('修改密码')
       break
     case UserCommand.LOGOUT:
-      console.log('退出')
+      globalStore.logout()
       break
   }
 }

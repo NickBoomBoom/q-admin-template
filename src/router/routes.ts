@@ -20,6 +20,16 @@ export const commonRoutes: RouteRecordRaw[] = [
     name: "404",
     component: () => import('../pages/error/404.vue')
   },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: "/dashboard"
+  }
+]
+
+export const WHITE_LIST = [
+  'Login',
+  '403',
+  '404'
 ]
 
 export const menuRoutes: RouteRecordRaw[] = [

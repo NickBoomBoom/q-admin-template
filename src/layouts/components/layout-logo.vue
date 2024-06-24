@@ -5,7 +5,7 @@
   </div>
 </template>
 <script setup lang="ts">
-const menuStore = useMenuStore()
-const { isCollapse } = storeToRefs(menuStore)
+const globalStore = useGlobalStore()
+const { isCollapse } = storeToRefs(globalStore)
 </script>
 <style lang="scss" scoped></style>

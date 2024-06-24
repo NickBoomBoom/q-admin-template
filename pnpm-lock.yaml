@@ -17,6 +17,9 @@ importers:
       rxjs:
         specifier: ^7.8.1
         version: 7.8.1
+      utils94:
+        specifier: ^2.2.4
+        version: 2.2.4
       vue:
         specifier: ^3.4.30
         version: 3.4.30(typescript@5.5.2)
@@ -1026,6 +1029,10 @@ packages:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
     hasBin: true
 
+  js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
+
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -1390,6 +1397,9 @@ packages:
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
+
+  utils94@2.2.4:
+    resolution: {integrity: sha512-HwYnpgOH9Vns4u0lEGgmyB/3RsUzSRhMFrJmyizNbSdytURbM3dsC/3GMJdaQI0aO/UgJcbPkzfHZQRMzr/4qQ==}
 
   vite-plugin-oxlint@1.0.3:
     resolution: {integrity: sha512-Ldlu6XuvR1YLIL9a407t6J0lcriCSNE8w+bd4X0D1S7SsQVsYWQg6Zs4ALnFDympZAyfiuPc1P/m8uSoNHFy2w==}
@@ -2504,6 +2514,8 @@ snapshots:
 
   jiti@1.21.6: {}
 
+  js-cookie@3.0.5: {}
+
   js-tokens@4.0.0: {}
 
   js-tokens@9.0.0: {}
@@ -2880,6 +2892,10 @@ snapshots:
       browserslist: 4.23.1
       escalade: 3.1.2
       picocolors: 1.0.1
+
+  utils94@2.2.4:
+    dependencies:
+      js-cookie: 3.0.5
 
   vite-plugin-oxlint@1.0.3(oxlint@0.4.4):
     dependencies:

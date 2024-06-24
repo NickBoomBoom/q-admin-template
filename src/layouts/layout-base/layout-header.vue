@@ -1,5 +1,5 @@
 <template>
-  <el-page-header @back="menuStore.toggleCollapse" class="py-4">
+  <el-page-header @back="globalStore.toggleCollapse" class="py-4">
     <template #icon>
       <div :class="menuIcon"></div>
     </template>
@@ -19,8 +19,8 @@
 </template>
 <script setup lang="ts">
 const route = useRoute()
-const menuStore = useMenuStore()
-const { isCollapse } = storeToRefs(menuStore)
+const globalStore = useGlobalStore()
+const { isCollapse } = storeToRefs(globalStore)
 const menuIcon = computed(() => {
   return isCollapse.value ? 'i-mdi-arrow-collapse-right' : 'i-mdi-arrow-collapse-left'
 })
