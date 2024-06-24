@@ -1,5 +1,6 @@
-import 'uno.css'
+// main.ts
 import './assets/scss/index.scss'
+import 'virtual:uno.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
