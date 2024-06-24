@@ -1,5 +1,6 @@
 import { NavigationFailureType, createRouter, createWebHistory, isNavigationFailure, type NavigationFailure, type RouteLocationNormalized, type RouteLocationNormalizedGeneric, type NavigationGuardNext } from 'vue-router'
 import { getRoutes, WHITE_LIST } from './routes'
+import NProgress from 'nprogress'
 
 
 async function setup(to: RouteLocationNormalizedGeneric, from: RouteLocationNormalizedGeneric, next: NavigationGuardNext) {
@@ -50,6 +51,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   // console.log('before', to, from)
+  NProgress.start()
   await setup(to, from, next)
   next()
 })
@@ -68,5 +70,7 @@ router.afterEach((to: RouteLocationNormalized, from: RouteLocationNormalized, fa
   else if (!isWhiteList) {
     globalStore.handleTag('push', to)
   }
+
+  NProgress.done()
 })
 export default router

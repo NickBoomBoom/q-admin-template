@@ -1,5 +1,7 @@
 <template>
-  <el-card shadow="hover"> page-1首页</el-card>
+  page-1首页
+
+  <input type="text" />
 </template>
 <script setup lang="ts"></script>
 <style lang="scss" scoped></style>

@@ -8,6 +8,7 @@ declare global {
   const EffectScope: typeof import('vue')['EffectScope']
   const Pinia: typeof import('../src/stores/index')['Pinia']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
+  const busService: typeof import('../src/services/bus.service')['busService']
   const computed: typeof import('vue')['computed']
   const createApp: typeof import('vue')['createApp']
   const createPinia: typeof import('pinia')['createPinia']

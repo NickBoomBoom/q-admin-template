@@ -5,13 +5,13 @@
       <layout-menus class="flex-1" />
     </el-aside>
     <el-container class="overflow-hidden">
-      <el-header height="auto">
+      <el-header height="100px" class="overflow-hidden">
         <layout-header />
         <layout-tag />
       </el-header>
-      <el-main style="border: 1px solid red">
-        <RouterView v-slot="{ Component, route }">
-          <KeepAlive>
+      <el-main>
+        <RouterView v-if="isRefresh" v-slot="{ Component, route }">
+          <KeepAlive ref="keepAliveRef">
             <component v-if="!route.meta.noCache" :is="Component" :key="route.fullPath" />
           </KeepAlive>
           <component v-if="route.meta.noCache" :is="Component" />
@@ -23,7 +23,28 @@
     </el-container>
   </el-container>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import NProgress from 'nprogress'
+const instance = getCurrentInstance()
+const keepAliveRef = ref()
+const route = useRoute()
+const isRefresh = ref(true)
+busService.$refresh.subscribe({
+  next: () => {
+    refresh()
+  }
+})
+
+function refresh(path: string = route.fullPath) {
+  NProgress.start()
+  keepAliveRef.value?.$?.__v_cache.delete(path)
+  isRefresh.value = false
+  nextTick(() => {
+    isRefresh.value = true
+    NProgress.done()
+  })
+}
+</script>
 <style lang="scss">
 .layout-base {
   &-aside {

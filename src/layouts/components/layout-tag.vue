@@ -4,7 +4,7 @@
       <div
         v-for="item in tags"
         :key="item.fullPath"
-        class="flex items-center px-2 py-1 !ml-0 border border-solid border-gray-200 cursor-pointer"
+        class="flex shrink-0 items-center px-2 py-1 !ml-0 border border-solid border-gray-200 cursor-pointer"
         :class="[
           isCurrent(item)
             ? 'bg-primary text-white border-primary'
@@ -47,7 +47,9 @@ function handleDeleteTag(r: RouteLocationNormalized) {
   globalStore.handleTag('delete', r)
 }
 
-function handleRefreshTag(r: RouteLocationNormalized) {}
+function handleRefreshTag(r: RouteLocationNormalized) {
+  busService.$refresh.next()
+}
 
 function handleTap(r: RouteLocationNormalized) {
   router.push({

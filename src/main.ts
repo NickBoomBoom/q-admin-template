@@ -1,6 +1,7 @@
 // main.ts
 import './assets/scss/index.scss'
 import 'virtual:uno.css'
+import './plugins'
 import { createApp } from 'vue'
 import { Pinia } from './stores'
 
