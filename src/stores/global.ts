@@ -7,7 +7,6 @@ import { storage } from 'utils94'
 const TOKEN_KEY = import.meta.env.VITE_TOKEN_KEY
 const localToken = storage.LocalStorage.get(TOKEN_KEY)
 export const useGlobalStore = defineStore('global', () => {
-
   // user
   const user = ref<User>({
     id: 0,
@@ -20,6 +19,7 @@ export const useGlobalStore = defineStore('global', () => {
       "dashboard": {}
     }
   })
+
   const isLogin = computed((): boolean => {
     return !!user.value.token
   })
@@ -38,8 +38,6 @@ export const useGlobalStore = defineStore('global', () => {
     replaceToFirstRoute()
   }
 
-
-
   async function logout() {
     storage.LocalStorage.remove(TOKEN_KEY)
     router.replace({
@@ -54,7 +52,6 @@ export const useGlobalStore = defineStore('global', () => {
       ...user.value,
       token: 'test'
     }
-
   }
 
   // menu
