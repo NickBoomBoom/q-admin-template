@@ -37,12 +37,16 @@ busService.$refresh.subscribe({
 
 function refresh(path: string = route.fullPath) {
   NProgress.start()
-  keepAliveRef.value?.$?.__v_cache.delete(path)
+  removeCache(path)
   isRefresh.value = false
   nextTick(() => {
     isRefresh.value = true
     NProgress.done()
   })
+}
+
+function removeCache(path: string) {
+  keepAliveRef.value?.$?.__v_cache?.delete(path)
 }
 </script>
 <style lang="scss">
