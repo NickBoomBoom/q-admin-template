@@ -25,15 +25,35 @@
 </template>
 <script setup lang="ts">
 import NProgress from 'nprogress'
-const instance = getCurrentInstance()
+import type { Subscription } from 'rxjs'
 const keepAliveRef = ref()
 const route = useRoute()
 const isRefresh = ref(true)
-busService.$refresh.subscribe({
-  next: () => {
-    refresh()
-  }
-})
+const subscribeMap: Subscription[] = []
+
+function initSubscribe() {
+  subscribeMap.push(
+    busService.$refresh.subscribe({
+      next: () => {
+        refresh()
+      }
+    }),
+    busService.$closeTag.subscribe({
+      next: (path) => {
+        removeCache(path)
+      }
+    }),
+    busService.$closeAllTag.subscribe({
+      next: () => {
+        removeAllCache()
+      }
+    })
+  )
+}
+
+function unSubscribe() {
+  subscribeMap.map((t) => t.unsubscribe())
+}
 
 function refresh(path: string = route.fullPath) {
   NProgress.start()
@@ -45,9 +65,16 @@ function refresh(path: string = route.fullPath) {
   })
 }
 
+function removeAllCache() {
+  keepAliveRef.value?.$?.__v_cache?.clear()
+}
+
 function removeCache(path: string) {
   keepAliveRef.value?.$?.__v_cache?.delete(path)
 }
+
+onMounted(initSubscribe)
+onUnmounted(unSubscribe)
 </script>
 <style lang="scss">
 .layout-base {

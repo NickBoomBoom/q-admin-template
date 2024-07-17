@@ -5,7 +5,6 @@
         <el-icon>
           <div :class="item.meta?.icon" class="text-2xl"></div>
         </el-icon>
-
         <span>{{ item.meta?.title }}</span>
       </template>
       <MenuList v-model:menuList="item.children" />

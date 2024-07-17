@@ -35,7 +35,6 @@ export const WHITE_LIST = [
 export const menuRoutes: RouteRecordRaw[] = [
   dashboardRoutes,
   page1Routes,
-
   {
     path: "https://www.google.com",
     meta: {

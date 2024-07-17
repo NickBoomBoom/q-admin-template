@@ -17,11 +17,7 @@
           <div class="i-mdi-reload ml-1" @click.self="handleRefreshTag(item)"></div>
         </template>
 
-        <div
-          v-if="isCurrent(item) && !isOnlyOne"
-          class="i-mdi-close"
-          @click.self="handleDeleteTag(item)"
-        ></div>
+        <div v-if="!isOnlyOne" class="i-mdi-close" @click.self="handleDeleteTag(item)"></div>
       </div>
     </div>
   </el-scrollbar>

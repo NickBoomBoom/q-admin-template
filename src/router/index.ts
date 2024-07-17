@@ -50,7 +50,7 @@ const router = createRouter({
 
 
 router.beforeEach(async (to, from, next) => {
-  // console.log('before', to, from)
+  console.log('before', to, from)
   NProgress.start()
   await setup(to, from, next)
   next()
@@ -68,7 +68,7 @@ router.afterEach((to: RouteLocationNormalized, from: RouteLocationNormalized, fa
   }
   // 非白名单入 tag
   else if (!isWhiteList) {
-    globalStore.handleTag('push', to)
+    globalStore.handleTag('push', to, from)
   }
 
   NProgress.done()

@@ -40,6 +40,7 @@ export const useGlobalStore = defineStore('global', () => {
 
   async function logout() {
     storage.LocalStorage.remove(TOKEN_KEY)
+    clearTag()
     router.replace({
       name: "Login"
     })
@@ -52,6 +53,8 @@ export const useGlobalStore = defineStore('global', () => {
       ...user.value,
       token: 'test'
     }
+    initMenus()
+    replaceToFirstRoute()
   }
 
   // menu
@@ -103,40 +106,57 @@ export const useGlobalStore = defineStore('global', () => {
       const res: RouteRecordRaw | undefined = menus.value.find(t => !!t.children?.length)
       if (res) {
         router.replace({
-          name: res.children[0].name as string
+          name: res.children![0].name as string
         })
       } else {
         throw new Error('未配置路由')
       }
-
-
     }
   }
   // tag 
   const tags = ref<RouteLocationNormalized[]>([])
+  const preTagIndex = ref<number>(0)
 
-  function handleTag(type: 'push' | 'delete', route: RouteLocationNormalized) {
+  function handleTag(type: 'push' | 'delete', route: RouteLocationNormalized, fromRoute?: RouteLocationNormalized) {
     switch (type) {
       case 'push':
-        const isExist = tags.value.some(t => t.fullPath === route.fullPath)
-        !isExist && tags.value.push(route)
+        const index = tags.value.findIndex(t => t.fullPath === route.fullPath)
+
+        if (index < 0) {
+          tags.value.push(route)
+        } else {
+          preTagIndex.value = tags.value.findIndex(t => t.fullPath === fromRoute?.fullPath)
+        }
         break;
       case 'delete':
         if (tags.value.length === 1) {
-          return
+          return console.warn('已经是最后一个 tag 了,禁止关闭')
         }
-        const i = tags.value.findIndex(t => t.name === route.name)
-        const nextTag = tags.value[i - 1] || tags.value[tags.value.length - 1]
+        const i = tags.value.findIndex(t => t.fullPath === route.fullPath)
         if (i >= 0) {
           tags.value.splice(i, 1)
         }
-        router.push({
-          name: nextTag.name as string,
-          params: nextTag.params,
-          query: nextTag.query
-        })
+        const nextTag = tags.value[preTagIndex.value] || tags.value[preTagIndex.value - 1] || tags.value[i - 1] || tags.value[tags.value.length - 1]
+        const currentRouteFullPath = router.currentRoute.value.fullPath
+        const isCurrentRouteExist = tags.value.some(t => t.fullPath === currentRouteFullPath)
+        busService.$closeTag.next(route.fullPath)
+        if (isCurrentRouteExist) {
+
+        } else {
+          router.push({
+            name: nextTag.name as string,
+            params: nextTag.params,
+            query: nextTag.query
+          })
+        }
+
         break;
     }
+  }
+
+  function clearTag() {
+    tags.value = []
+    busService.$closeAllTag.next()
   }
   return {
     // user
