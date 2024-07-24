@@ -19,8 +19,8 @@ const globalStore = useGlobalStore()
 const router = useRouter()
 const loading = ref(false)
 const model = ref({
-  username: '',
-  password: ''
+  username: 'admin',
+  password: '123456'
 })
 async function login() {
   loading.value = true

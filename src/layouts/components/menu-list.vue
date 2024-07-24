@@ -11,6 +11,7 @@
     </el-sub-menu>
 
     <el-menu-item v-else :index="item.name || item.path">
+      <!-- <el-menu-item v-if="!item.children && !item.meta.hideInMenus" :index="item.name || item.path"> -->
       <el-icon>
         <div :class="item.meta?.icon" class="text-2xl"></div>
       </el-icon>

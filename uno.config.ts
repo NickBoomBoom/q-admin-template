@@ -7,6 +7,7 @@ export default defineConfig({
     colors: {
       'primary': "#409eff",
       'primary-200': "#79bbff",
+      elGray: '#dcdfe6'
     }
   },
   presets: [

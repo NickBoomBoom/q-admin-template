@@ -2,8 +2,9 @@
   <el-scrollbar>
     <el-menu
       ref="menuRef"
-      class="w-full !border-r-none"
+      class="!w-full !border-r-none"
       :collapse="isCollapse"
+      :collapse-transition="false"
       :default-active="defaultActive"
       :default-openeds="defaultOpends"
       @select="handleSelect"

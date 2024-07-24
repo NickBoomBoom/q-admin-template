@@ -6,7 +6,7 @@
         <span class="ml-1 mr-0.5">
           {{ name }}
         </span>
-        <span class="i-mdi-chevron-down text-xl" />
+        <i class="i-mdi-chevron-down text-xl" />
       </div>
       <template #dropdown>
         <el-dropdown-menu>

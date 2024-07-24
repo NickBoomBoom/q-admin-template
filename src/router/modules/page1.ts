@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-export default {
+export default [{
   path: "page1",
   meta: {
     title: "页面1",
@@ -55,4 +55,5 @@ export default {
       ]
     }
   ]
-} as RouteRecordRaw
+}
+] as RouteRecordRaw[]

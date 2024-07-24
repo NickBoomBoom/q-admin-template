@@ -1,22 +1,27 @@
-import type { User } from "types/user"
-import type { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
+import type {
+  RouteLocationNormalized,
+  RouteLocationNormalizedGeneric,
+  RouteRecordRaw
+} from 'vue-router'
 import { menuRoutes } from '@/router/routes'
 import router from '@/router'
 import { storage } from 'utils94'
+import { SYSTEM_CONFIG } from '@config/base'
 
 const TOKEN_KEY = import.meta.env.VITE_TOKEN_KEY
+const TAB_KEY = import.meta.env.VITE_TAB_KEY
 const localToken = storage.LocalStorage.get(TOKEN_KEY)
-export const useGlobalStore = defineStore('global', () => {
+export const useGlobalStore: any = defineStore('global', () => {
+  const systemConfig = ref<SystemConfig>(SYSTEM_CONFIG)
   // user
   const user = ref<User>({
     id: 0,
-    token: "",
-    username: "用户名称",
-    nickname: "昵称",
-    isAdmin: false,
+    token: '',
+    username: '用户名称',
+    nickname: '昵称',
+    isAdmin: true,
     permissions: {
-      '/page1': {},
-      "dashboard": {}
+      '/ac/list': {}
     }
   })
 
@@ -28,25 +33,24 @@ export const useGlobalStore = defineStore('global', () => {
     return !!localToken
   })
 
-  async function login(params: any) {
+  async function login() {
     storage.LocalStorage.set(TOKEN_KEY, 'test')
     user.value = {
       ...user.value,
       token: 'test'
     }
     initMenus()
-    replaceToFirstRoute()
   }
 
   async function logout() {
     storage.LocalStorage.remove(TOKEN_KEY)
-    clearTag()
+    clearTab()
     router.replace({
-      name: "Login"
+      name: 'Login'
     })
   }
 
-  async function loginByToken(token: string = localToken) {
+  async function loginByToken(to: RouteLocationNormalizedGeneric, token: string = localToken): any {
     // localToken 去登录
     storage.LocalStorage.set(TOKEN_KEY, 'test')
     user.value = {
@@ -54,37 +58,63 @@ export const useGlobalStore = defineStore('global', () => {
       token: 'test'
     }
     initMenus()
-    replaceToFirstRoute()
+    return getVisitRoute(to)
   }
 
+  function getVisitRoute(to?: RouteLocationNormalizedGeneric): any {
+    if (to && to.path !== '/') {
+      return {
+        name: to.name as string,
+        params: to.params,
+        query: to.query
+      }
+    } else {
+      getFirstVisitRoute()
+    }
+  }
+
+  function getFirstVisitRoute() {
+    const firstRoute: RouteRecordRaw | undefined = menus.value.find((t) => !t.children?.length)
+    const firstChildRoute: RouteRecordRaw | undefined = menus.value.find(
+      (t) => !!t.children?.length
+    )
+    if (firstRoute || firstChildRoute) {
+      return {
+        name: firstRoute ? firstRoute.name : (firstChildRoute?.children?.[0]?.name as string)
+      }
+    } else {
+      throw new Error('未配置路由')
+    }
+  }
   // menu
   const menus = ref<RouteRecordRaw[]>([])
   const isCollapse = ref(false)
-  function toggleCollapse() {
-    isCollapse.value = !isCollapse.value
+  function toggleCollapse(bol?: boolean) {
+    isCollapse.value = typeof bol === 'boolean' ? bol : !isCollapse.value
   }
 
   function initMenus() {
     if (user.value.isAdmin) {
       menus.value = menuRoutes
     } else {
-      user.value.permissions.value = Object.keys(user.value.permissions).map(t => {
-        return t.replace(/^(\/)/, '')
-      })
-      menus.value = checkPermission(menuRoutes, user.value.permissions.value);
+      menus.value = filterRoutes(menuRoutes)
     }
   }
 
-  function checkPermission(routes: RouteRecordRaw[], permissions: string[]): RouteRecordRaw[] {
+  function filterRoutes(routes: RouteRecordRaw[]): RouteRecordRaw[] {
     const res: RouteRecordRaw[] = []
-    routes.forEach(t => {
+    routes.forEach((t) => {
       const { children, path } = t
-      if (permissions.includes(path) || isUrl(path)) {
+      const isPass =
+        checkPermission({
+          path: `/${path}`
+        }) || isUrl(path)
+      if (isPass) {
         res.push(t)
       } else if (children?.length) {
         const obj = {
           ...t,
-          children: checkPermission(children, permissions)
+          children: filterRoutes(children)
         }
         res.push(obj)
       }
@@ -92,56 +122,50 @@ export const useGlobalStore = defineStore('global', () => {
     return res
   }
 
-  function checkPermissionByRoute(route: RouteRecordRaw) {
-
-  }
-
-  function replaceToFirstRoute() {
-    const target: RouteRecordRaw | undefined = menus.value.find(t => !t.children?.length)
-    if (target) {
-      router.replace({
-        name: target.name as string
-      })
+  function checkPermission(to: { path: string }): boolean {
+    if (user.value.isAdmin) {
+      return true
     } else {
-      const res: RouteRecordRaw | undefined = menus.value.find(t => !!t.children?.length)
-      if (res) {
-        router.replace({
-          name: res.children![0].name as string
-        })
-      } else {
-        throw new Error('未配置路由')
-      }
+      const { path } = to
+      return !!user.value.permissions[path]
     }
   }
-  // tag 
-  const tags = ref<RouteLocationNormalized[]>([])
-  const preTagIndex = ref<number>(0)
 
-  function handleTag(type: 'push' | 'delete', route: RouteLocationNormalized, fromRoute?: RouteLocationNormalized) {
+  // tab
+  const tabs = ref<RouteLocationNormalized[]>(storage.SessionStorage.get(TAB_KEY) || [])
+  const preTabIndex = ref<number>(0)
+
+  function handleTab(
+    type: 'push' | 'delete',
+    route: RouteLocationNormalized,
+    fromRoute?: RouteLocationNormalized
+  ) {
     switch (type) {
       case 'push':
-        const index = tags.value.findIndex(t => t.fullPath === route.fullPath)
-
+        const index = tabs.value.findIndex((t) => t.fullPath === route.fullPath)
         if (index < 0) {
-          tags.value.push(route)
+          tabs.value.push(route)
         } else {
-          preTagIndex.value = tags.value.findIndex(t => t.fullPath === fromRoute?.fullPath)
+          preTabIndex.value = tabs.value.findIndex((t) => t.fullPath === fromRoute?.fullPath)
         }
-        break;
+        break
       case 'delete':
-        if (tags.value.length === 1) {
-          return console.warn('已经是最后一个 tag 了,禁止关闭')
+        if (tabs.value.length === 1) {
+          return console.warn('已经是最后一个 tab 了,禁止关闭')
         }
-        const i = tags.value.findIndex(t => t.fullPath === route.fullPath)
+        const i = tabs.value.findIndex((t) => t.fullPath === route.fullPath)
         if (i >= 0) {
-          tags.value.splice(i, 1)
+          tabs.value.splice(i, 1)
         }
-        const nextTag = tags.value[preTagIndex.value] || tags.value[preTagIndex.value - 1] || tags.value[i - 1] || tags.value[tags.value.length - 1]
+        const nextTag =
+          tabs.value[preTabIndex.value] ||
+          tabs.value[preTabIndex.value - 1] ||
+          tabs.value[i - 1] ||
+          tabs.value[tabs.value.length - 1]
         const currentRouteFullPath = router.currentRoute.value.fullPath
-        const isCurrentRouteExist = tags.value.some(t => t.fullPath === currentRouteFullPath)
+        const isCurrentRouteExist = tabs.value.some((t) => t.fullPath === currentRouteFullPath)
         busService.$closeTag.next(route.fullPath)
         if (isCurrentRouteExist) {
-
         } else {
           router.push({
             name: nextTag.name as string,
@@ -150,20 +174,33 @@ export const useGlobalStore = defineStore('global', () => {
           })
         }
 
-        break;
+        break
     }
+    storage.SessionStorage.set(TAB_KEY, tabs.value)
   }
 
-  function clearTag() {
-    tags.value = []
+  function clearTab() {
+    tabs.value = []
     busService.$closeAllTag.next()
   }
   return {
+    // systemConfig
+    systemConfig,
     // user
-    user, login, loginByToken, logout, isLogin, isTokenInSession,
+    user,
+    login,
+    loginByToken,
+    logout,
+    isLogin,
+    isTokenInSession,
     //  menus
-    menus, isCollapse, toggleCollapse, initMenus,
-    // tags
-    tags, handleTag
+    menus,
+    isCollapse,
+    toggleCollapse,
+    initMenus,
+    checkPermission,
+    // tabs
+    tabs,
+    handleTab
   }
 })

@@ -1,0 +1,24 @@
+.el-card[size="small"] {
+  .el-card__header {
+    padding: 4px 10px;
+  }
+
+  .el-card__body {
+    padding: 6px 10px;
+  }
+}
+
+
+.el-tabs[size="small"] {
+
+  .el-tabs__nav-prev,
+  .el-tabs__nav-next,
+  .el-tabs__item {
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .el-tabs__item {
+    padding: 0 5px !important;
+  }
+}

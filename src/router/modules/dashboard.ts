@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-export default {
+export default [{
   path: "dashboard",
   name: "Dashboard",
   meta: {
@@ -8,4 +8,4 @@ export default {
     icon: "i-mdi-office-building"
   },
   component: () => import('../../pages/dashboard/index.vue')
-} as RouteRecordRaw
+}] as RouteRecordRaw[]

@@ -2,34 +2,42 @@
   <el-container class="h-screen layout-base">
     <el-aside class="b-r-1 !w-auto !overflow-unset flex flex-col layout-base-aside">
       <layout-logo />
-      <layout-menus class="flex-1" />
+      <layout-menu class="flex-1" />
     </el-aside>
     <el-container class="overflow-hidden">
-      <el-header height="100px" class="overflow-hidden">
-        <layout-header />
-        <layout-tag />
+      <el-header height="auto" class="!p-0">
+        <layout-header class="px-2" />
+        <layout-tab />
       </el-header>
-      <el-main>
-        <RouterView v-if="isRefresh" v-slot="{ Component, route }">
-          <KeepAlive ref="keepAliveRef">
-            <component v-if="!route.meta.noCache" :is="Component" :key="route.fullPath" />
-          </KeepAlive>
-          <component v-if="route.meta.noCache" :is="Component" />
-        </RouterView>
+      <el-main class="py-0">
+        <el-scrollbar>
+          <RouterView v-slot="{ Component, route }">
+            <KeepAlive ref="keepAliveRef">
+              <component v-if="!route.meta.noCache" :is="Component" :key="route.fullPath" />
+            </KeepAlive>
+            <component v-if="route.meta.noCache" :is="Component" :key="route.fullPath" />
+          </RouterView>
+        </el-scrollbar>
       </el-main>
-      <el-footer>
+      <el-footer class="!h-unset">
         <layout-footer />
       </el-footer>
     </el-container>
   </el-container>
 </template>
 <script setup lang="ts">
-import NProgress from 'nprogress'
 import type { Subscription } from 'rxjs'
 const keepAliveRef = ref()
 const route = useRoute()
-const isRefresh = ref(true)
+const router = useRouter()
 const subscribeMap: Subscription[] = []
+
+const globalStore = useGlobalStore()
+const { isCollapse } = storeToRefs(globalStore)
+
+const collapseIcon = computed(() => {
+  return isCollapse.value ? 'i-mdi-chevron-triple-right' : 'i-mdi-chevron-triple-left'
+})
 
 function initSubscribe() {
   subscribeMap.push(
@@ -56,12 +64,14 @@ function unSubscribe() {
 }
 
 function refresh(path: string = route.fullPath) {
-  NProgress.start()
   removeCache(path)
-  isRefresh.value = false
-  nextTick(() => {
-    isRefresh.value = true
-    NProgress.done()
+  const to = {
+    path: route.path,
+    params: route.params,
+    query: route.query
+  }
+  router.replace({ name: 'Refresh' }).then(() => {
+    router.replace(to)
   })
 }
 
@@ -79,7 +89,7 @@ onUnmounted(unSubscribe)
 <style lang="scss">
 .layout-base {
   &-aside {
-    box-shadow: 2px 0 6px #00152959;
+    box-shadow: 1px 0 5px rgba(0, 21, 41, 0.2);
 
     .horizontal-collapse-transition {
       transition: var(--el-transition-duration) width linear;

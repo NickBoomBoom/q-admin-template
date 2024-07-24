@@ -2,26 +2,19 @@ html,
 body {
   margin: 0;
   padding: 0;
+  height: 100vh;
+  overflow: hidden;
 }
 
+* {
+  box-sizing: border-box;
+}
 
-/**
- * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in iOS.
- */
-
-// :where(html) {
-//   line-height: 1.15;
-//   /* 1 */
-//   -webkit-text-size-adjust: 100%;
-//   /* 2 */
-//   text-size-adjust: 100%;
-//   /* 2 */
-// }
-
-/**
- * Add the correct font weight in Chrome, Edge, and Safari.
- */
+#nprogress {
+  .bar {
+    z-index: 9999 !important
+  }
+}
 
 :where(b, strong) {
   font-weight: bolder;

@@ -1,76 +1,94 @@
-import { NavigationFailureType, createRouter, createWebHistory, isNavigationFailure, type NavigationFailure, type RouteLocationNormalized, type RouteLocationNormalizedGeneric, type NavigationGuardNext } from 'vue-router'
-import { getRoutes, WHITE_LIST } from './routes'
+import {
+  NavigationFailureType,
+  createRouter,
+  createWebHistory,
+  isNavigationFailure,
+  type NavigationFailure,
+  type RouteLocationNormalized,
+  type RouteLocationNormalizedGeneric,
+  type NavigationGuardNext
+} from 'vue-router'
+import { getRoutes } from './routes'
 import NProgress from 'nprogress'
+import { isWhiteList, setWindowTitle } from './utils'
+const BASE_URL = import.meta.env.BASE_URL
 
-
-async function setup(to: RouteLocationNormalizedGeneric, from: RouteLocationNormalizedGeneric, next: NavigationGuardNext) {
+async function setup(to: RouteLocationNormalizedGeneric, from: RouteLocationNormalizedGeneric) {
   const globalStore = useGlobalStore()
-  const { name, query: { token } } = to
+  const {
+    name,
+    query: { token },
+    path
+  } = to
 
   // 白名单检测
-  if (WHITE_LIST.includes(name as string)) {
-    return next()
+  if (isWhiteList(name as string, path)) {
+    return true
   }
 
-  // 路由上携带 token
+  // 路由上携带 token,第三方跳转
   if (token) {
-    await globalStore.loginByToken(token as string)
-    globalStore.initMenus()
-    return
+    const res = await globalStore.loginByToken(to, token as string)
+    return res
   }
 
-  // 已登录
   if (globalStore.isLogin) {
-    if (globalStore.menus.length === 0) {
-      globalStore.initMenus()
-    }
-  }
-  // 跳转登录
-  else if (!globalStore.isLogin) {
-    // 存在 token,但未登录
-    if (globalStore.isTokenInSession) {
-      await globalStore.loginByToken()
-      globalStore.initMenus()
+    if (globalStore.checkPermission(to)) {
+      return true
     } else {
-      next({
-        name: "Login",
+      return {
+        name: '403'
+      }
+    }
+  } else {
+    if (globalStore.isTokenInSession) {
+      const res = await globalStore.loginByToken(to)
+      return res
+    } else {
+      return {
+        name: 'Login',
         replace: true
-      })
-
+      }
     }
   }
-
 }
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(BASE_URL),
   routes: getRoutes()
 })
 
-
-
 router.beforeEach(async (to, from, next) => {
-  console.log('before', to, from)
+  // console.log('before', to, from)
   NProgress.start()
-  await setup(to, from, next)
-  next()
+  setWindowTitle()
+  const res = await setup(to, from)
+  next(res)
 })
 
-router.afterEach((to: RouteLocationNormalized, from: RouteLocationNormalized, failure: void | NavigationFailure) => {
-  // console.log('after', to, from, failure)
-  const isFail = isNavigationFailure(failure)
-  const isRepeat = isNavigationFailure(failure, NavigationFailureType.duplicated)
-  const isCancel = isNavigationFailure(failure, NavigationFailureType.aborted | NavigationFailureType.cancelled)
-  const globalStore = useGlobalStore()
-  const isWhiteList = WHITE_LIST.includes(to.name as string)
-  if (isFail || isRepeat || isCancel) {
+router.afterEach(
+  (
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    failure: void | NavigationFailure
+  ) => {
+    // console.log('after', to, from)
+    const isFail = isNavigationFailure(failure)
+    const isRepeat = isNavigationFailure(failure, NavigationFailureType.duplicated)
+    const isCancel = isNavigationFailure(
+      failure,
+      NavigationFailureType.aborted | NavigationFailureType.cancelled
+    )
+    const globalStore = useGlobalStore()
 
+    if (isFail || isRepeat || isCancel) {
+    }
+    // 非白名单入 tab
+    else if (!isWhiteList(to.name as string, to.path) && to.path !== '/') {
+      globalStore.handleTab('push', to, from)
+    }
+    setWindowTitle(to)
+    NProgress.done()
   }
-  // 非白名单入 tag
-  else if (!isWhiteList) {
-    globalStore.handleTag('push', to, from)
-  }
-
-  NProgress.done()
-})
+)
 export default router

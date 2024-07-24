@@ -4,6 +4,7 @@ import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { PlusProComponentsResolver } from '@plus-pro-components/resolver'
 import oxlintPlugin from 'vite-plugin-oxlint'
 
 export const plugins = [
@@ -14,7 +15,8 @@ export const plugins = [
   AutoImport({
     dts: './types/auto-import.d.ts',
     imports: ["vue", "vue-router", 'pinia'],
-    dirs: ['./src/stores', './src/services', './src/utils'],
+    // 以下这些目录下不需要用index暴露出去,AutoImport会自动帮忙导入
+    dirs: ['./src/stores', './src/services', './src/utils', './src/utils', './src/api'],
     resolvers: [ElementPlusResolver()],
   }),
   Components({
@@ -23,6 +25,6 @@ export const plugins = [
       './src/layouts'
     ],
     dts: "./types/components.d.ts",
-    resolvers: [ElementPlusResolver()],
+    resolvers: [ElementPlusResolver(), PlusProComponentsResolver()]
   })
 ]
