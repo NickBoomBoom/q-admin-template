@@ -69,7 +69,7 @@ export const useGlobalStore: any = defineStore('global', () => {
         query: to.query
       }
     } else {
-      getFirstVisitRoute()
+      return getFirstVisitRoute()
     }
   }
 

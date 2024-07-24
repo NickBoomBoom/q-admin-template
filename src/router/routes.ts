@@ -1,8 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 import LayoutBase from '@layouts/layout-base/index.vue'
 import dashboardRoutes from './modules/dashboard'
-import page1Routes from './modules/page1'
-
+import linkRoutes from './modules/link'
 export const commonRoutes: RouteRecordRaw[] = [
   {
     path: "/login",
@@ -45,16 +44,7 @@ export const WHITE_LIST = ['Login', '403', '404', 'Refresh']
 
 export const menuRoutes: RouteRecordRaw[] = [
   ...dashboardRoutes,
-  ...page1Routes,
-  {
-    path: "https://www.google.com",
-    meta: {
-      title: '外部链接',
-      icon: "i-mdi-office-building",
-      link: "https://www.google.com",
-    },
-    component: () => null
-  }
+  ...linkRoutes,
 ]
 
 export const routes: RouteRecordRaw[] = [
