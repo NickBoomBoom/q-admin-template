@@ -1,9 +1,10 @@
 import { Subject } from "rxjs"
 
-class BusService {
+class GlobalService {
   $refresh = new Subject<void>()
   $closeTag = new Subject<string>()
   $closeAllTag = new Subject<void>()
+  $pageScroll = new Subject<PageScroll>()
 }
 
-export const busService = new BusService()
+export const globalService = new GlobalService()

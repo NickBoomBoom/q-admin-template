@@ -164,7 +164,7 @@ export const useGlobalStore: any = defineStore('global', () => {
           tabs.value[tabs.value.length - 1]
         const currentRouteFullPath = router.currentRoute.value.fullPath
         const isCurrentRouteExist = tabs.value.some((t) => t.fullPath === currentRouteFullPath)
-        busService.$closeTag.next(route.fullPath)
+        globalService.$closeTag.next(route.fullPath)
         if (isCurrentRouteExist) {
         } else {
           router.push({
@@ -181,7 +181,7 @@ export const useGlobalStore: any = defineStore('global', () => {
 
   function clearTab() {
     tabs.value = []
-    busService.$closeAllTag.next()
+    globalService.$closeAllTag.next()
   }
   return {
     // systemConfig

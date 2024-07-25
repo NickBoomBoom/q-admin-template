@@ -9,8 +9,12 @@
         <layout-header class="px-2" />
         <layout-tab />
       </el-header>
-      <el-main class="py-0">
-        <el-scrollbar>
+      <el-main class="!py-3 !px-2 bg-gray-100">
+        <el-scrollbar
+          ref="pageScrollRef"
+          class="bg-white py-3 px-4 border-rd"
+          @scroll="handleScroll"
+        >
           <RouterView v-slot="{ Component, route }">
             <KeepAlive ref="keepAliveRef">
               <component v-if="!route.meta.noCache" :is="Component" :key="route.fullPath" />
@@ -26,32 +30,31 @@
   </el-container>
 </template>
 <script setup lang="ts">
+import { throttle } from 'lodash-es'
 import type { Subscription } from 'rxjs'
+
 const keepAliveRef = ref()
 const route = useRoute()
 const router = useRouter()
 const subscribeMap: Subscription[] = []
-
-const globalStore = useGlobalStore()
-const { isCollapse } = storeToRefs(globalStore)
-
-const collapseIcon = computed(() => {
-  return isCollapse.value ? 'i-mdi-chevron-triple-right' : 'i-mdi-chevron-triple-left'
-})
-
+const pageScrollRef = ref()
+let preScrollbarScroll: ScrollbarScroll = {
+  scrollLeft: 0,
+  scrollTop: 0
+}
 function initSubscribe() {
   subscribeMap.push(
-    busService.$refresh.subscribe({
+    globalService.$refresh.subscribe({
       next: () => {
         refresh()
       }
     }),
-    busService.$closeTag.subscribe({
+    globalService.$closeTag.subscribe({
       next: (path) => {
         removeCache(path)
       }
     }),
-    busService.$closeAllTag.subscribe({
+    globalService.$closeAllTag.subscribe({
       next: () => {
         removeAllCache()
       }
@@ -83,13 +86,31 @@ function removeCache(path: string) {
   keepAliveRef.value?.$?.__v_cache?.delete(path)
 }
 
+function handleScroll(obj: ScrollbarScroll) {
+  throttledScrollHandler(obj)
+}
+
+const throttledScrollHandler = throttle((obj) => {
+  const { scrollLeft, scrollTop } = obj
+  const { scrollLeft: preScrollLeft, scrollTop: preScrollTop } = preScrollbarScroll
+
+  globalService.$pageScroll.next({
+    x: scrollLeft - preScrollLeft,
+    y: scrollTop - preScrollTop,
+    scrollLeft,
+    scrollTop,
+    refEl: pageScrollRef
+  })
+
+  preScrollbarScroll = obj
+}, 400)
 onMounted(initSubscribe)
 onUnmounted(unSubscribe)
 </script>
 <style lang="scss">
 .layout-base {
   &-aside {
-    box-shadow: 1px 0 5px rgba(0, 21, 41, 0.2);
+    box-shadow: 1px 0 5px rgba(0, 21, 41, 0.1);
 
     .horizontal-collapse-transition {
       transition: var(--el-transition-duration) width linear;

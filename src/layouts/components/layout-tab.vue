@@ -48,7 +48,7 @@ function handleDeleteTag(r: RouteLocationNormalized) {
 }
 
 function handleRefreshTag(r: RouteLocationNormalized) {
-  busService.$refresh.next()
+  globalService.$refresh.next()
 }
 
 function handleTap(r: RouteLocationNormalized) {
@@ -62,26 +62,10 @@ function handleTap(r: RouteLocationNormalized) {
 
 <style scoped lang="scss">
 .layout-tab {
-  box-shadow: 0px 4px 6px rgba(0, 21, 41, 0.2);
+  box-shadow: 0px 4px 6px rgba(0, 21, 41, 0.1);
 
   &-item {
-    &.active {
-      position: relative;
-      &::after {
-        content: '';
-        display: block;
-        width: 0;
-        height: 0;
-        position: absolute;
-        bottom: -2px;
-        left: 50%;
-        transform: translateX(-50%);
-
-        border-style: solid;
-        border-width: 0 8px 6px 8px;
-        border-color: transparent transparent white transparent;
-      }
-    }
+    border-radius: 0.25rem 0.25rem 0 0;
   }
 }
 </style>

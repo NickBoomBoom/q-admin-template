@@ -21,4 +21,16 @@ declare global {
     permissions: any
   }
 
+  interface PageScroll {
+    x: number
+    y: number
+    scrollTop: number
+    scrollLeft: number
+    refEl: Ref
+  }
+
+  interface ScrollbarScroll {
+    scrollTop: number
+    scrollLeft: number
+  }
 }
