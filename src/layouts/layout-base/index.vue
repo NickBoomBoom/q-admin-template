@@ -12,7 +12,7 @@
       <el-main class="!py-3 !px-2 bg-gray-100">
         <el-scrollbar
           ref="pageScrollRef"
-          class="bg-white py-3 px-4 border-rd"
+          class="layout-base-scrollbar bg-white py-3 px-4 border-rd"
           @scroll="handleScroll"
         >
           <RouterView v-slot="{ Component, route }">
@@ -26,6 +26,7 @@
       <el-footer class="!h-unset">
         <layout-footer />
       </el-footer>
+      <el-backtop target=".layout-base-scrollbar .el-scrollbar__wrap" :right="50" :bottom="80" />
     </el-container>
   </el-container>
 </template>
@@ -133,6 +134,7 @@ onUnmounted(unSubscribe)
           right: 0;
           width: 5px;
           height: 100%;
+          border-radius: 0.25rem;
           background-color: var(--el-color-primary);
         }
       }
