@@ -11,6 +11,7 @@ https://icones.js.org/collection/mdi
 
 1. redirect 重定向url
 2. t tab栏自定义名称
+3. token
 
 # 全局方案
 
