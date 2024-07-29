@@ -1,6 +1,6 @@
 <template>
   <div
-    class="layout-menu-collapse flex items-center justify-center cursor-pointer hover:bg-gray100"
+    class="layout-menu-collapse flex items-center justify-center cursor-pointer hover:bg-hover-primary"
   >
     <el-icon
       size="26"

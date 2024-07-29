@@ -24,7 +24,6 @@
 .layout-base {
   &-aside {
     box-shadow: 1px 0 5px rgba(0, 21, 41, 0.1);
-
     .horizontal-collapse-transition {
       transition: var(--el-transition-duration) width linear;
     }

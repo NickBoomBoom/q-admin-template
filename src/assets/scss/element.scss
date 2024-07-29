@@ -23,7 +23,10 @@
   }
 }
 
-.el-tooltip__trigger:focus-visible {
-  outline: unset;
+.el-tooltip__trigger {
   cursor: pointer;
+
+  &:focus-visible {
+    outline: unset;
+  }
 }

@@ -8,7 +8,7 @@
         :class="[
           isCurrent(item)
             ? 'active bg-primary text-white b-primary'
-            : 'hover:bg-primary-200 hover:text-white hover:border-primary-200'
+            : 'hover:bg-primary200 hover:text-white hover:border-primary200'
         ]"
         @click.self="handleTap(item)"
       >

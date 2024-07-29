@@ -6,7 +6,8 @@ export default defineConfig({
   theme: {
     colors: {
       'primary': "#409eff",
-      'primary-200': "#79bbff",
+      'primary200': "#79bbff",
+      'hover-primary': '#ecf5ff',
       elGray: '#dcdfe6'
     }
   },
