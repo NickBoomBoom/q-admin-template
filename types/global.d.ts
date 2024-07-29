@@ -10,6 +10,7 @@ declare global {
     subTitle?: string
     logo: string
     footer?: string
+    layout: 'base' | 'top'
   }
 
   interface User {

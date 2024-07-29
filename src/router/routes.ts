@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
-import LayoutBase from '@layouts/layout-base/index.vue'
+import Layouts from '@layouts/index.vue'
 import dashboardRoutes from './modules/dashboard'
 import linkRoutes from './modules/link'
 export const commonRoutes: RouteRecordRaw[] = [
@@ -50,7 +50,7 @@ export const menuRoutes: RouteRecordRaw[] = [
 export const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: LayoutBase,
+    component: Layouts,
     children: menuRoutes,
   },
   ...commonRoutes,

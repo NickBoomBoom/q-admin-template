@@ -1,38 +1,45 @@
 <template>
-  <div>
-    <el-dropdown @command="handleUserCommand">
-      <div class="flex items-center">
-        <span class="i-mdi-account text-xl" />
-        <span class="ml-1 mr-0.5">
-          {{ name }}
-        </span>
-        <i class="i-mdi-chevron-down text-xl" />
-      </div>
-      <template #dropdown>
-        <el-dropdown-menu>
-          <el-dropdown-item
-            v-for="item in userDropdown"
-            :key="item.command"
-            :command="item.command"
-          >
-            <div :class="item.icon" class="mr-1"></div>
-            {{ item.name }}
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </template>
-    </el-dropdown>
-  </div>
+  <el-dropdown @command="handleUserCommand">
+    <div class="flex items-center" :style="styles">
+      <span class="i-mdi-account text-xl" />
+      <span class="ml-1 mr-0.5">
+        {{ name }}
+      </span>
+      <i class="i-mdi-chevron-down text-xl" />
+    </div>
+    <template #dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item v-for="item in userDropdown" :key="item.command" :command="item.command">
+          <div :class="item.icon" class="mr-1"></div>
+          {{ item.name }}
+        </el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
+  </el-dropdown>
 </template>
 <script setup lang="ts">
 enum UserCommand {
   CHANGE_PWD,
   LOGOUT
 }
+const props = withDefaults(
+  defineProps<{
+    color: string
+  }>(),
+  {
+    color: 'black'
+  }
+)
 const globalStore = useGlobalStore()
 const { user } = storeToRefs(globalStore)
 const name = computed(() => {
   const { nickname, username } = user.value
   return username || nickname
+})
+const styles = computed(() => {
+  return {
+    color: props.color
+  }
 })
 const userDropdown = [
   {

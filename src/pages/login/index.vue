@@ -9,7 +9,7 @@
     </el-form-item>
 
     <el-form-item>
-      <el-button type="primary" @click="login">登录</el-button>
+      <el-button type="primary" :loading="loading" @click="login">登录</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -25,6 +25,7 @@ const model = ref({
 async function login() {
   loading.value = true
   await globalStore.login(model.value)
+  router.push('/')
   loading.value = false
 }
 </script>
