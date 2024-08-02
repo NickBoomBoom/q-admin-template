@@ -95,7 +95,7 @@ function checkShowArrow() {
   const { wrapRef } = scrollbarRef.value
   const sw = wrapRef.scrollWidth
   const { width } = wrapRef.getBoundingClientRect()
-  isShowArrow.value = sw > width
+  isShowArrow.value = sw > width + 2
 }
 
 function handleScrollMove(type: 'l' | 'r') {
