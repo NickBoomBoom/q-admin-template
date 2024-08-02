@@ -11,7 +11,7 @@ export function setWindowTitle(to?: RouteLocationNormalized) {
   let windowTitle = globalStore.systemConfig.title
   if (to) {
     const { meta: { title } } = to
-    windowTitle = `${title} | ${sysTitle}`
+    windowTitle = title ? `${title} | ${sysTitle}` : sysTitle
   }
   document.title = windowTitle
 

@@ -40,6 +40,7 @@ export const useGlobalStore: any = defineStore('global', () => {
       token: 'test'
     }
     initMenus()
+    return getVisitRoute()
   }
 
   async function logout() {

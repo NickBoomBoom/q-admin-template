@@ -49,6 +49,7 @@ declare module 'vue' {
     LayoutTopLogo: typeof import('./../src/layouts/layout-top/layout-top-logo.vue')['default']
     LayoutUser: typeof import('./../src/layouts/components/layout-user.vue')['default']
     MenuList: typeof import('./../src/layouts/components/menu-list.vue')['default']
+    PlusForm: typeof import('plus-pro-components/es')['PlusForm']
     PlusTable: typeof import('plus-pro-components/es')['PlusTable']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
