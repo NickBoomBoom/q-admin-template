@@ -2,7 +2,7 @@
 
 # 图标方案
 
-https://icones.js.org/collection/mdi
+https://icones.js.org/collection/material-symbols
 
 # 重点
 

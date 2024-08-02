@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="layout-menu-collapse flex items-center justify-center cursor-pointer hover:bg-hover-primary"
-  >
+  <div class="layout-menu-collapse flex items-center justify-center cursor-pointer">
     <el-icon
       size="26"
       class="collapse"
@@ -10,7 +8,7 @@
       }"
       @click="globalStore.toggleCollapse"
     >
-      <div class="i-mdi-format-indent-decrease"></div>
+      <div class="i-material-symbols-format-indent-decrease-rounded"></div>
     </el-icon>
   </div>
 </template>

@@ -28,7 +28,7 @@
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
-    "@iconify-json/mdi": "^1.1.67",
+    "@iconify-json/material-symbols": "^1.1.85",
     "@plus-pro-components/resolver": "^0.0.3",
     "@tsconfig/node20": "^20.1.4",
     "@types/lodash-es": "^4.17.12",

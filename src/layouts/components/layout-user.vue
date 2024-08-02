@@ -1,11 +1,11 @@
 <template>
   <el-dropdown @command="handleUserCommand">
     <div class="flex items-center" :style="styles">
-      <span class="i-mdi-account text-xl" />
+      <span class="i-material-symbols-account-circle text-xl" />
       <span class="ml-1 mr-0.5">
         {{ name }}
       </span>
-      <i class="i-mdi-chevron-down text-xl" />
+      <i class="i-material-symbols-keyboard-arrow-down text-xl" />
     </div>
     <template #dropdown>
       <el-dropdown-menu>
@@ -24,7 +24,7 @@ enum UserCommand {
 }
 const props = withDefaults(
   defineProps<{
-    color: string
+    color?: string
   }>(),
   {
     color: 'black'
@@ -43,12 +43,12 @@ const styles = computed(() => {
 })
 const userDropdown = [
   {
-    icon: 'i-mdi-onepassword',
+    icon: 'i-material-symbols-password',
     name: '修改密码',
     command: UserCommand.CHANGE_PWD
   },
   {
-    icon: 'i-mdi-logout',
+    icon: 'i-material-symbols-exit-to-app-sharp',
     name: '退出',
     command: UserCommand.LOGOUT
   }

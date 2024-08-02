@@ -19,9 +19,10 @@ const router = createRouter({
   routes: getRoutes()
 })
 
+console.log(111, getRoutes())
 
 router.beforeEach(async (to, from, next) => {
-  console.log('before', to, from)
+  // console.log('before', to, from)
   NProgress.start()
   setWindowTitle()
   const res = await setup(to, from)

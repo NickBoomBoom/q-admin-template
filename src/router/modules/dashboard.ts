@@ -5,7 +5,7 @@ export default [{
   name: "Dashboard",
   meta: {
     title: 'Dashboard',
-    icon: "i-mdi-home"
+    icon: "i-material-symbols-dashboard"
   },
   component: () => import('../../pages/dashboard/index.vue')
 }] as RouteRecordRaw[]

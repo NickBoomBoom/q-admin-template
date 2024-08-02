@@ -29,6 +29,7 @@ declare module 'vue' {
     ElResult: typeof import('element-plus/es')['ElResult']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     LayoutBase: typeof import('./../src/layouts/layout-base/index.vue')['default']
     LayoutBaseHeader: typeof import('./../src/layouts/layout-base/layout-base-header.vue')['default']
     LayoutFooter: typeof import('./../src/layouts/components/layout-footer.vue')['default']
@@ -46,6 +47,7 @@ declare module 'vue' {
     LayoutTopLogo: typeof import('./../src/layouts/layout-top/layout-top-logo.vue')['default']
     LayoutUser: typeof import('./../src/layouts/components/layout-user.vue')['default']
     MenuList: typeof import('./../src/layouts/components/menu-list.vue')['default']
+    PlusTable: typeof import('plus-pro-components/es')['PlusTable']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
