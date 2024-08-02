@@ -32,6 +32,8 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     LayoutBase: typeof import('./../src/layouts/layout-base/index.vue')['default']
     LayoutBaseHeader: typeof import('./../src/layouts/layout-base/layout-base-header.vue')['default']
+    LayoutBreadcrumb: typeof import('./../src/layouts/components/layout-breadcrumb.vue')['default']
+    LayoutE: typeof import('./../src/layouts/components/layout-e.vue')['default']
     LayoutFooter: typeof import('./../src/layouts/components/layout-footer.vue')['default']
     LayoutHeader: typeof import('./../src/layouts/layout-base/layout-header.vue')['default']
     LayoutLogo: typeof import('./../src/layouts/components/layout-logo.vue')['default']

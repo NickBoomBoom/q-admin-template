@@ -131,6 +131,42 @@ export const useGlobalStore: any = defineStore('global', () => {
     }
   }
 
+  function getBreadcrumb(routeName: string): RouteRecordRaw[] {
+
+    const target = menus.value.find(t => t.name === routeName)
+    if (target) {
+      return [target]
+    } else {
+      function _find(arr: any[]) {
+        let _res = []
+        let _done = false
+        for (let i = 0; i < arr.length; i++) {
+          const item = arr[i]
+          const { children } = item
+          if (_done) {
+            break
+          }
+          if (children?.length) {
+            const target = children.find(t => t.name === routeName)
+            if (target) {
+              _done = true
+              _res.push(item, target)
+            } else {
+              _res.push(item, ..._find(children))
+            }
+          } else {
+            continue
+          }
+        }
+        return _res
+      }
+
+      return _find(menus.value)
+
+    }
+
+  }
+
   // tab
   const tabs = ref<RouteLocationNormalized[]>(storage.SessionStorage.get(TAB_KEY) || [])
   const preTabIndex = ref<number>(0)
@@ -199,6 +235,7 @@ export const useGlobalStore: any = defineStore('global', () => {
     toggleCollapse,
     initMenus,
     checkPermission,
+    getBreadcrumb,
     // tabs
     tabs,
     handleTab
