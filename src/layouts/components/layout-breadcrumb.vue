@@ -10,11 +10,11 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item
-              v-for="link in item.children"
+              v-for="link in item.children.filter((t) => !t.meta?.hideInMenus)"
               class="text-base"
               @click="handleItem(link)"
             >
-              <i :class="link.meta.icon" />
+              <i :class="link.meta?.icon" />
               {{ link.meta?.title }}
             </el-dropdown-item>
           </el-dropdown-menu>

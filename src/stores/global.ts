@@ -138,7 +138,7 @@ export const useGlobalStore: any = defineStore('global', () => {
     if (target) {
       return [target]
     } else {
-      function _find(arr: any[]) {
+      function _find(arr: any[]): RouteRecordRaw[] {
         let _res = []
         let _done = false
         for (let i = 0; i < arr.length; i++) {
