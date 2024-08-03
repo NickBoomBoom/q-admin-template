@@ -2,6 +2,7 @@
   <el-scrollbar>
     <el-menu
       ref="menuRef"
+      id="layout-menu"
       class="!w-full !border-r-none"
       :collapse="isCollapse"
       :collapse-transition="false"
@@ -28,6 +29,13 @@ watch(route, (v) => {
 })
 function handleSelect(index: string) {
   if (isUrl(index)) {
+    const el: any = document.querySelector('#layout-menu')?.querySelector('.is-active')
+    const childEl: any = el?.querySelector('.is-active')
+    if (childEl) {
+      childEl.click()
+    } else {
+      el.click()
+    }
     window.open(index)
   } else {
     router.push({ name: index })
