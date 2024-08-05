@@ -8,11 +8,11 @@
         <layout-menu class="flex-1" />
         <layout-menu-collapse class="h-10 hover:bg-hover-primary" />
       </el-aside>
-      <el-container>
-        <el-main class="flex-1 !py-3 !px-2 bg-gray-100">
+      <el-container class=" bg-gray-100 !py-3 !px-2 !pb-0">
+        <el-main class="flex-1  bg-white">
           <layout-main />
         </el-main>
-        <el-footer class="!h-unset">
+        <el-footer class="!h-unset   ">
           <layout-footer />
         </el-footer>
       </el-container>
