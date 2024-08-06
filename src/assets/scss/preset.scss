@@ -8,6 +8,7 @@ body {
 
   ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
     background-color: transparent;
   }
 
@@ -21,7 +22,7 @@ body {
 
   ::-webkit-scrollbar-thumb {
     border-radius: 40px;
-    background-color: rgba(144, 147, 153, .2);
+    background-color: rgba(144, 147, 153, .3);
     cursor: pointer;
 
     &:hover {
