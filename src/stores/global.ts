@@ -8,6 +8,8 @@ import router from '@/router'
 import { storage } from 'utils94'
 import { SYSTEM_CONFIG } from '@config/base'
 
+type TAB_ITEM = Omit<RouteLocationNormalized, 'matched' | 'redirectedFrom'>
+
 const TOKEN_KEY = import.meta.env.VITE_TOKEN_KEY
 const TAB_KEY = import.meta.env.VITE_TAB_KEY
 const localToken = storage.LocalStorage.get(TOKEN_KEY)
@@ -169,7 +171,7 @@ export const useGlobalStore: any = defineStore('global', () => {
   }
 
   // tab
-  const tabs = ref<RouteLocationNormalized[]>(storage.SessionStorage.get(TAB_KEY) || [])
+  const tabs = ref<TAB_ITEM[]>(storage.SessionStorage.get(TAB_KEY) || [])
   const preTabIndex = ref<number>(0)
 
   function handleTab(
@@ -177,6 +179,8 @@ export const useGlobalStore: any = defineStore('global', () => {
     route: RouteLocationNormalized,
     fromRoute?: RouteLocationNormalized
   ) {
+    // 去除循环引用的字段
+    const { matched, redirectedFrom, ..._route } = route
     switch (type) {
       case 'push':
         const index = tabs.value.findIndex((t) => t.fullPath === route.fullPath)
