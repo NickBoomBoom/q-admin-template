@@ -19,7 +19,7 @@ export default defineConfig({
     pipeline: {
       include: [
         /\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html)($|\?)/,
-        'src/router/modules/*.ts' // 解决动态 icon 问题
+        'src/router/*.ts' // 解决动态 icon 问题
       ]
     }
   }

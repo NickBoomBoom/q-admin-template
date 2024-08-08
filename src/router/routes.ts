@@ -1,9 +1,71 @@
 import type { RouteRecordRaw } from 'vue-router'
 import Layouts from '@layouts/index.vue'
-import dashboardRoutes from './modules/dashboard'
-import linkRoutes from './modules/link'
-import tableRoutes from './modules/table'
-import panelRoutes from './modules/panel'
+export const menuRoutes: RouteRecordRaw[] = [
+  {
+    path: "dashboard",
+    name: "Dashboard",
+    meta: {
+      title: 'Dashboard',
+      icon: "i-material-symbols-dashboard"
+    },
+    component: () => import('../pages/dashboard/index.vue')
+  }, {
+    path: "panel",
+    name: "Panel",
+    meta: {
+      title: 'Panel',
+      icon: "i-material-symbols-space-dashboard-sharp"
+    },
+    children: [
+      {
+        path: 'index',
+        name: "PanelIndex",
+        meta: {
+          title: '总面板',
+          icon: 'i-material-symbols-cards'
+        },
+        component: () => import('../pages/panel/index.vue')
+      },
+      {
+        path: 'one',
+        name: "PanelOne",
+        meta: {
+          title: '面板一',
+          icon: 'i-material-symbols-calendar-today'
+        },
+        component: () => import('../pages/panel/panel-1/index.vue')
+      },
+      {
+        path: 'two',
+        name: "PanelTwo",
+        meta: {
+          title: '面板二',
+          icon: 'i-material-symbols-sentiment-calm-outline-rounded'
+        },
+        component: () => import('../pages/panel/panel-2/index.vue')
+      },
+
+    ]
+  }, 
+  {
+    path: "table",
+    name: "Table",
+    meta: {
+      title: 'Table',
+      icon: "i-material-symbols-table-chart-view"
+    },
+    component: () => import('../pages/table/index.vue')
+  },
+  {
+    path: "https://www.google.com",
+    meta: {
+      title: 'Google',
+      icon: "i-material-symbols-attach-file-rounded",
+      link: "https://www.google.com",
+    },
+    component: () => null
+  }
+]
 export const commonRoutes: RouteRecordRaw[] = [
   {
     path: "/login",
@@ -44,12 +106,6 @@ export const commonRoutes: RouteRecordRaw[] = [
 
 export const WHITE_LIST = ['Login', '403', '404', 'Refresh']
 
-export const menuRoutes: RouteRecordRaw[] = [
-  ...dashboardRoutes,
-  ...tableRoutes,
-  ...panelRoutes,
-  ...linkRoutes,
-]
 
 export const routes: RouteRecordRaw[] = [
   {
