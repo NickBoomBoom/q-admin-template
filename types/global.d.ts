@@ -34,4 +34,13 @@ declare global {
     scrollTop: number
     scrollLeft: number
   }
+
+  interface DirectiveBinding{
+    value: any 
+    oldValue:any 
+    arg:any 
+    modifiers:any 
+    instance: any 
+    dir:any 
+  }
 }
