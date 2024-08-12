@@ -44,3 +44,13 @@ body {
     z-index: 9999 !important
   }
 }
+
+
+.plus-table {
+  display: flex;
+  flex-direction: column;
+
+  .el-table {
+    flex: 1
+  }
+}
