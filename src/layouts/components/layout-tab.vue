@@ -48,7 +48,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { RouteLocationNormalized } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
@@ -71,19 +70,19 @@ watch(
   }
 )
 
-function isCurrent(item: RouteLocationNormalized) {
+function isCurrent(item: TAB_ITEM) {
   return item.fullPath === route.fullPath
 }
 
-function handleDeleteTag(r: RouteLocationNormalized) {
+function handleDeleteTag(r: TAB_ITEM) {
   globalStore.handleTab('delete', r)
 }
 
-function handleRefreshTag(r: RouteLocationNormalized) {
+function handleRefreshTag(r: TAB_ITEM) {
   globalService.$refresh.next()
 }
 
-function handleTap(r: RouteLocationNormalized) {
+function handleTap(r: TAB_ITEM) {
   router.push({
     name: r.name!,
     params: r.params,

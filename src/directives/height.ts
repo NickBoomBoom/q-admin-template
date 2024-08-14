@@ -1,7 +1,7 @@
 let heightFunction = () => { }
 
 function autoHeight(el: HTMLElement) {
-  const parent = el.parentNode
+  const parent:any = el.parentNode!
   const grandpa = parent.parentNode
   const children = parent.children
   const { height: gh } = grandpa?.getBoundingClientRect()

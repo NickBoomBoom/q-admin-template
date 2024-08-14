@@ -43,4 +43,7 @@ declare global {
     instance: any 
     dir:any 
   }
+
+type TAB_ITEM = Omit<RouteLocationNormalized, 'matched' | 'redirectedFrom'>
+
 }

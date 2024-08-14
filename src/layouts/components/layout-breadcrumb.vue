@@ -44,7 +44,7 @@ watch(
 )
 
 function check() {
-  breadcrumb.value = globalStore.getBreadcrumb(route.name)
+  breadcrumb.value = globalStore.getBreadcrumb(route.name as string)
 }
 
 function handleItem(item: RouteRecordRaw) {

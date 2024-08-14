@@ -7,6 +7,7 @@ import Axios, {
 } from 'axios'
 import { stringify } from 'qs'
 import NProgress from 'nprogress'
+import { ElMessage } from 'element-plus'
 
 const BASE_URL = import.meta.env.VITE_ROOT_API
 

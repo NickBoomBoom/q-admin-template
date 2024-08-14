@@ -1,19 +1,43 @@
 import type {
   RouteLocationNormalized,
   RouteLocationNormalizedGeneric,
+  RouteParamsRaw,
   RouteRecordRaw
 } from 'vue-router'
 import { menuRoutes } from '@/router/routes'
 import router from '@/router'
 import { storage } from 'utils94'
 import { SYSTEM_CONFIG } from '@config/base'
+import type {Ref, ComputedRef} from 'vue'
 
-type TAB_ITEM = Omit<RouteLocationNormalized, 'matched' | 'redirectedFrom'>
+interface GlobalState {
+  systemConfig: Ref<SystemConfig>
+  user: Ref<User>
+  login: (body:any) => Promise<any>
+  loginByToken: (to: RouteLocationNormalizedGeneric, token?: string) => Promise<any>
+  logout: () => Promise<void>
+  isLogin: ComputedRef<boolean>
+  isTokenInSession: ComputedRef<boolean>
+  menus: Ref<RouteRecordRaw[]>
+  isCollapse: Ref<boolean>
+  toggleCollapse: (bol?: boolean) => void
+  initMenus: () => void
+  checkPermission: (to: { path: string }) => boolean
+  getBreadcrumb: (routeName: string) => RouteRecordRaw[]
+  tabs: Ref<TAB_ITEM[]>
+  handleTab: (
+    type: 'push' | 'delete',
+    route: RouteLocationNormalized | TAB_ITEM,
+    fromRoute?: RouteLocationNormalized | TAB_ITEM
+  ) => void
+}
+
 
 const TOKEN_KEY = import.meta.env.VITE_TOKEN_KEY
 const TAB_KEY = import.meta.env.VITE_TAB_KEY
 const localToken = storage.LocalStorage.get(TOKEN_KEY)
-export const useGlobalStore: any = defineStore('global', () => {
+export const useGlobalStore = defineStore<'global', GlobalState>('global', () => {
+
   const systemConfig = ref<SystemConfig>(SYSTEM_CONFIG)
   // user
   const user = ref<User>({
@@ -35,7 +59,7 @@ export const useGlobalStore: any = defineStore('global', () => {
     return !!localToken
   })
 
-  async function login() {
+  async function login(body:any) {
     storage.LocalStorage.set(TOKEN_KEY, 'test')
     user.value = {
       ...user.value,
@@ -53,7 +77,7 @@ export const useGlobalStore: any = defineStore('global', () => {
     })
   }
 
-  async function loginByToken(to: RouteLocationNormalizedGeneric, token: string = localToken): any {
+  async function loginByToken(to: RouteLocationNormalizedGeneric, token: string = localToken): Promise<any> {
     // localToken 去登录
     storage.LocalStorage.set(TOKEN_KEY, 'test')
     user.value = {
@@ -150,7 +174,7 @@ export const useGlobalStore: any = defineStore('global', () => {
             break
           }
           if (children?.length) {
-            const target = children.find(t => t.name === routeName)
+            const target = children.find((t : RouteParamsRaw)=> t.name === routeName)
             if (target) {
               _done = true
               _res.push(item, target)
@@ -176,8 +200,8 @@ export const useGlobalStore: any = defineStore('global', () => {
 
   function handleTab(
     type: 'push' | 'delete',
-    route: RouteLocationNormalized,
-    fromRoute?: RouteLocationNormalized
+    route: RouteLocationNormalized|TAB_ITEM,
+    fromRoute?: RouteLocationNormalized|TAB_ITEM
   ) {
     // 去除循环引用的字段
     const { matched, redirectedFrom, ..._route } = route

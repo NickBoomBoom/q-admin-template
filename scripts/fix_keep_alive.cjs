@@ -3,7 +3,7 @@ var path = require('path')
 
 var vue_bundler_file = path.resolve(
   __dirname,
-  '../node_modules/.pnpm/@vue+runtime-core@3.4.30/node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js'
+  '../node_modules/.pnpm/@vue+runtime-core@3.4.37/node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js'
 )
 
 fs.readFile(vue_bundler_file, 'utf8', function (err, data) {
