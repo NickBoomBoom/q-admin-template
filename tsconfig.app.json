@@ -1,12 +1,12 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["types/*", "src/**/*", "src/**/*.vue", "env.d.ts"],
+  "include": ["src/types/*", "src/**/*", "src/**/*.vue", "env.d.ts"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
     "lib": ["ES2015", "ESNext", "DOM"],
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "typeRoots": ["./node_modules/@types", "./types"],
+    "typeRoots": ["./node_modules/@types", "src/types"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],

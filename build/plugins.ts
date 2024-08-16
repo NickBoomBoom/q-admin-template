@@ -14,7 +14,7 @@ export const plugins = [
   UnoCSS(),
   oxlintPlugin(),
   AutoImport({
-    dts: './types/auto-import.d.ts',
+    dts: './src/types/auto-import.d.ts',
     imports: ["vue", "vue-router", 'pinia'],
     // 以下这些目录下不需要用index暴露出去,AutoImport会自动帮忙导入
     dirs: ['./src/stores', './src/services', './src/utils', './src/utils', './src/api'],
@@ -25,7 +25,7 @@ export const plugins = [
       './src/components',
       './src/layouts'
     ],
-    dts: "./types/components.d.ts",
+    dts: "./src/types/components.d.ts",
     resolvers: [ElementPlusResolver(), PlusProComponentsResolver()]
   })
 ]
