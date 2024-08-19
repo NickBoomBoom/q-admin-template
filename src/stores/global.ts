@@ -246,6 +246,7 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
 
   function clearTab() {
     tabs.value = []
+    storage.SessionStorage.remove(TAB_KEY)
     globalService.$closeAllTag.next()
   }
   return {

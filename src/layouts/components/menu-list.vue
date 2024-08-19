@@ -1,17 +1,20 @@
 <template>
   <template v-for="item in menuList" :key="item.path">
-    <el-sub-menu v-if="item.children" :index="item.name || item.path">
+    <el-sub-menu v-if="item.children" :index="getIndex(item)">
       <template #title>
         <el-icon>
           <div :class="item.meta?.icon" class="text-2xl"></div>
         </el-icon>
         <span>{{ item.meta?.title }}</span>
       </template>
-      <MenuList v-model:menuList="item.children" />
+      <MenuList v-model:menuList="item.children" :lastPath="item.path" />
     </el-sub-menu>
 
-    <!-- <el-menu-item v-else :index="item.name || item.path"> -->
-    <el-menu-item v-if="!item.children && !item.meta.hideInMenus" :index="item.name || item.path">
+    <el-menu-item
+      v-if="!item.children && !item.meta.hideInMenus"
+      :index="getIndex(item)"
+      @click="handleSelect(item)"
+    >
       <el-icon>
         <div :class="item.meta?.icon" class="text-2xl"></div>
       </el-icon>
@@ -23,11 +26,31 @@
 </template>
 
 <script setup lang="ts">
+const router = useRouter()
 const props = defineProps<{
   menuList: any[]
+  lastPath?: string
 }>()
 
 const MenuList = defineAsyncComponent({
   loader: () => import('@layouts/components/menu-list.vue')
 })
+
+function getIndex(item: TAB_ITEM) {
+  const { fullPath } = item
+  const index = `${props.lastPath ? props.lastPath + '/' : ''}${item.path}`
+  return fullPath || index
+}
+function handleSelect(row: any) {
+  const { path, name, query, params } = row
+  if (isUrl(path)) {
+    window.open(path)
+  } else {
+    router.push({
+      name,
+      query,
+      params
+    })
+  }
+}
 </script>

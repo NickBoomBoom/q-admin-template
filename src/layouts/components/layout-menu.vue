@@ -8,7 +8,6 @@
       :collapse-transition="false"
       :default-active="defaultActive"
       :default-openeds="defaultOpends"
-      @select="handleSelect"
     >
       <menu-list v-model:menuList="menus" />
     </el-menu>
@@ -17,28 +16,17 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const router = useRouter()
 const globalStore = useGlobalStore()
 const menuRef = ref()
 const { menus, isCollapse } = storeToRefs(globalStore)
-const defaultActive = ref<string>(route.name as string)
-const defaultOpends = ref<string[]>([route.name as string])
+const defaultActive = ref<string>(parsePath(route.fullPath))
+const defaultOpends = ref<string[]>([parsePath(route.fullPath)])
 
-watch(route, (v) => {
-  defaultActive.value = v.name as string
-})
-function handleSelect(index: string) {
-  if (isUrl(index)) {
-    const el: any = document.querySelector('#layout-menu')?.querySelector('.is-active')
-    const childEl: any = el?.querySelector('.is-active')
-    if (childEl) {
-      childEl.click()
-    } else {
-      el.click()
-    }
-    window.open(index)
-  } else {
-    router.push({ name: index })
-  }
+function parsePath(s: string) {
+  return s.replace(/^\//, '')
 }
+watch(route, (v) => {
+  defaultActive.value = parsePath(v.fullPath)
+})
+ 
 </script>
