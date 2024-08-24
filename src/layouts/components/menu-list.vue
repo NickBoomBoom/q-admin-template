@@ -38,7 +38,7 @@ const MenuList = defineAsyncComponent({
 
 function getIndex(item: TAB_ITEM) {
   const { fullPath } = item
-  const index = `${props.lastPath ? props.lastPath + '/' : ''}${item.path}`
+  const index = `${props.lastPath || ''}${item.path || ''}`
   return fullPath || index
 }
 function handleSelect(row: any) {
