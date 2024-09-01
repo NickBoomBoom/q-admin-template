@@ -1,4 +1,4 @@
-.el-card[size="small"] {
+.el-card[size='small'] {
   .el-card__header {
     padding: 4px 10px;
   }
@@ -8,9 +8,7 @@
   }
 }
 
-
-.el-tabs[size="small"] {
-
+.el-tabs[size='small'] {
   .el-tabs__nav-prev,
   .el-tabs__nav-next,
   .el-tabs__item {
@@ -20,6 +18,15 @@
 
   .el-tabs__item {
     padding: 0 5px !important;
+  }
+}
+
+.el-overlay {
+  &-dialog {
+    .el-dialog__body {
+      max-height: 70vh;
+      overflow: auto;
+    }
   }
 }
 

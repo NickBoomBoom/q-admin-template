@@ -16,6 +16,7 @@
       </el-dropdown-menu>
     </template>
   </el-dropdown>
+  <update-pwd-dialog ref="updatePwdDialogRef" />
 </template>
 <script setup lang="ts">
 enum UserCommand {
@@ -32,6 +33,7 @@ const props = withDefaults(
 )
 const globalStore = useGlobalStore()
 const { user } = storeToRefs(globalStore)
+const updatePwdDialogRef = ref()
 const name = computed(() => {
   const { nickname, username } = user.value
   return username || nickname
@@ -57,7 +59,7 @@ const userDropdown = [
 function handleUserCommand(command: number) {
   switch (command) {
     case UserCommand.CHANGE_PWD:
-      console.log('修改密码')
+      updatePwdDialogRef.value.open()
       break
     case UserCommand.LOGOUT:
       globalStore.logout()
