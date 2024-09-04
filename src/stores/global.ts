@@ -79,8 +79,9 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
   }
 
   function setUser(obj: any = {}) {
+    const { isAdmin } = obj
     const permissionLength = Object.keys(obj.permissions).length
-    if (!permissionLength) {
+    if (!permissionLength && !isAdmin) {
       ElNotification({
         title: '当前用户无权限',
         message: '请联系管理员!',
@@ -94,7 +95,7 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
     }
     storage.LocalStorage.set(TOKEN_KEY, obj.token || 'test')
   }
-  
+
   async function logout() {
     storage.LocalStorage.remove(TOKEN_KEY)
     clearTab()
