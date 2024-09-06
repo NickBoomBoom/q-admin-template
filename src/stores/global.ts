@@ -41,12 +41,10 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
   const user = ref<User>({
     id: 0,
     token: '',
-    username: '用户名称',
-    nickname: '昵称',
-    isAdmin: true,
-    permissions: {
-      '/ac/list': {}
-    }
+    username: '',
+    nickname: '',
+    isAdmin: false,
+    permissions: {}
   })
 
   const isLogin = computed((): boolean => {
@@ -60,7 +58,12 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
   async function login(body: any) {
     // TODO: login 接口
     setUser({
-      username: 'test'
+      id: 0,
+      token: 'test',
+      username: '用户名称',
+      nickname: '昵称',
+      isAdmin: true,
+      permissions: {}
     })
     initMenus()
     return getVisitRoute()
@@ -72,7 +75,12 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
   ): Promise<any> {
     // TODO: localToken 去登录
     setUser({
-      username: 'test'
+      id: 0,
+      token: 'test',
+      username: '用户名称',
+      nickname: '昵称',
+      isAdmin: true,
+      permissions: {}
     })
     initMenus()
     return getVisitRoute(to)
