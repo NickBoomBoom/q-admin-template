@@ -125,7 +125,7 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
   }
 
   function getFirstVisitRoute() {
-    const firstRoute: RouteRecordRaw | undefined = menus.value.find((t) => !t.children?.length)
+    const firstRoute: RouteRecordRaw | undefined = menus.value.find((t) => !t.children)
     const firstChildRoute: RouteRecordRaw | undefined = menus.value.find(
       (t) => !!t.children?.length
     )
@@ -152,22 +152,27 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
     }
   }
 
-  function filterRoutes(routes: RouteRecordRaw[]): RouteRecordRaw[] {
+  function filterRoutes(routes: RouteRecordRaw[], prePath: string = ''): RouteRecordRaw[] {
     const res: RouteRecordRaw[] = []
     routes.forEach((t) => {
       const { children, path } = t
+      const curPath = `${prePath}/${path}`
+
       const isPass =
         checkPermission({
-          path: `/${path}`
+          path: curPath
         }) || isUrl(path)
       if (isPass) {
         res.push(t)
       } else if (children?.length) {
-        const obj = {
-          ...t,
-          children: filterRoutes(children)
+        const _child = filterRoutes(children, curPath)
+        if (_child.length) {
+          const obj = {
+            ...t,
+            children: _child
+          }
+          res.push(obj)
         }
-        res.push(obj)
       }
     })
     return res

@@ -15,17 +15,14 @@ export const plugins = [
   oxlintPlugin(),
   AutoImport({
     dts: './src/types/auto-import.d.ts',
-    imports: ["vue", "vue-router", 'pinia'],
+    imports: ['vue', 'vue-router', 'pinia'],
     // 以下这些目录下不需要用index暴露出去,AutoImport会自动帮忙导入
     dirs: ['./src/stores', './src/services', './src/utils', './src/utils', './src/api'],
-    resolvers: [ElementPlusResolver()],
+    resolvers: [ElementPlusResolver()]
   }),
   Components({
-    dirs: [
-      './src/components',
-      './src/layouts'
-    ],
-    dts: "./src/types/components.d.ts",
+    dirs: ['./src/components', './src/layouts'],
+    dts: './src/types/components.d.ts',
     resolvers: [ElementPlusResolver(), PlusProComponentsResolver()]
   })
 ]

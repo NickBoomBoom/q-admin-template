@@ -37,9 +37,12 @@ const MenuList = defineAsyncComponent({
 })
 
 function getIndex(item: TAB_ITEM) {
-  const { fullPath } = item
-  const index = `${props.lastPath || ''}${item.path || ''}`
-  return fullPath || index
+  const { fullPath, path } = item
+  if (fullPath) {
+    return fullPath
+  }
+  const arr = [props.lastPath, path].filter(t=>!!t)
+  return arr.join('/')
 }
 function handleSelect(row: any) {
   const { path, name, query, params } = row
