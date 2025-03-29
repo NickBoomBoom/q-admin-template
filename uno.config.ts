@@ -5,16 +5,13 @@ import presetIcons from '@unocss/preset-icons'
 export default defineConfig({
   theme: {
     colors: {
-      'primary': "#409eff",
-      'primary200': "#79bbff",
+      primary: '#409eff',
+      primary200: '#79bbff',
       'hover-primary': '#ecf5ff',
       elGray: '#dcdfe6'
     }
   },
-  presets: [
-    presetUno(),
-    presetIcons({})
-  ],
+  presets: [presetUno(), presetIcons({})],
   content: {
     pipeline: {
       include: [

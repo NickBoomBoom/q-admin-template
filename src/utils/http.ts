@@ -48,11 +48,11 @@ class Http {
         return whiteList.some((url) => config?.url?.startsWith(url))
           ? config
           : new Promise((resolve) => {
-            // TODO: 暂未接入
-            config.headers = config.headers || {}
-            config.headers['token'] = 'test'
-            resolve(config)
-          })
+              // TODO: 暂未接入
+              config.headers = config.headers || {}
+              config.headers['token'] = 'test'
+              resolve(config)
+            })
       },
       (error: AxiosError) => {
         this.handleMsg(error)

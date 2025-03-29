@@ -5,8 +5,7 @@ import {
   isNavigationFailure,
   type NavigationFailure,
   type RouteLocationNormalized,
-  type RouteLocationNormalizedGeneric,
-  type NavigationGuardNext
+  type RouteLocationNormalizedGeneric
 } from 'vue-router'
 import { getRoutes } from './routes'
 import NProgress from 'nprogress'
@@ -18,7 +17,6 @@ const router = createRouter({
   history: createWebHistory(BASE_URL),
   routes: getRoutes()
 })
-
 
 router.beforeEach(async (to, from, next) => {
   // console.log('before', to, from)
