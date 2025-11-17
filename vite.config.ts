@@ -9,6 +9,7 @@ export default defineConfig({
   },
   server: {
     port: 4399,
+    host: true,
     proxy: {
       '/api': {
         target: 'xxxx',
@@ -17,4 +18,11 @@ export default defineConfig({
       }
     }
   }
+  // css: {
+  //   preprocessorOptions: {
+  //     scss: {
+  //       additionalData: `@use "@/assets/scss/element-variables.scss" as *;`
+  //     }
+  //   }
+  // }
 })
