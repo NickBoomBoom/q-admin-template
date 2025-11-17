@@ -20,7 +20,7 @@ const dialog = ref({
   title: '修改密码',
   width: '400px',
   confirmLoading: false,
-  destroyOnClose: true,
+  destroyOnClose: true
   // appendToBody: true
 })
 const form: {

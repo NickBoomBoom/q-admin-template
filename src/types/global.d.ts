@@ -1,4 +1,4 @@
-export { }
+export {}
 declare global {
   interface Option {
     label: string | number
@@ -35,15 +35,14 @@ declare global {
     scrollLeft: number
   }
 
-  interface DirectiveBinding{
-    value: any 
-    oldValue:any 
-    arg:any 
-    modifiers:any 
-    instance: any 
-    dir:any 
+  interface DirectiveBinding {
+    value: any
+    oldValue: any
+    arg: any
+    modifiers: any
+    instance: any
+    dir: any
   }
 
-type TAB_ITEM = Omit<RouteLocationNormalized, 'matched' | 'redirectedFrom'>
-
+  type TAB_ITEM = Omit<RouteLocationNormalized, 'matched' | 'redirectedFrom'>
 }

@@ -41,7 +41,7 @@ function getIndex(item: TAB_ITEM) {
   if (fullPath) {
     return fullPath
   }
-  const arr = [props.lastPath, path].filter(t=>!!t)
+  const arr = [props.lastPath, path].filter((t) => !!t)
   return arr.join('/')
 }
 function handleSelect(row: any) {

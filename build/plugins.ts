@@ -5,14 +5,11 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { PlusProComponentsResolver } from '@plus-pro-components/resolver'
-// @ts-ignore
-import oxlintPlugin from 'vite-plugin-oxlint'
 
 export const plugins = [
   vue(),
   vueJsx(),
   UnoCSS(),
-  oxlintPlugin(),
   AutoImport({
     dts: './src/types/auto-import.d.ts',
     imports: ['vue', 'vue-router', 'pinia'],

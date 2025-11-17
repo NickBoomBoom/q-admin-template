@@ -28,5 +28,4 @@ function parsePath(s: string) {
 watch(route, (v) => {
   defaultActive.value = parsePath(v.fullPath)
 })
- 
 </script>

@@ -1,2 +1,2 @@
-import { createPinia } from "pinia"
+import { createPinia } from 'pinia'
 export const Pinia = createPinia()
