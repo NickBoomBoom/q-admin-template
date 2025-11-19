@@ -15,11 +15,11 @@
         <div
           v-for="item in tabs"
           :key="item.fullPath"
-          class="layout-tab-item h-8 flex shrink-0 items-center text-sm px-2 py-1 !ml-0 cursor-pointer border b-solid b-1 b-elGray"
+          class="layout-tab-item h-8 flex shrink-0 items-center text-sm px-2 py-1 !ml-0 cursor-pointer border b-solid b-1"
           :class="[
             isCurrent(item)
               ? 'active bg-primary text-white b-primary'
-              : 'hover:bg-primary200 hover:text-white hover:border-primary200'
+              : 'hover:bg-primary/60 hover:text-white hover:border-primary/60'
           ]"
           @click.self="handleTap(item)"
         >

@@ -6,7 +6,7 @@
     <el-container class="!overflow-hidden">
       <el-aside class="layout-top-aside flex flex-col !w-auto min-w-15">
         <layout-menu class="flex-1" />
-        <layout-menu-collapse class="h-10 hover:bg-hover-primary" />
+        <layout-menu-collapse class="h-10" />
       </el-aside>
       <el-container class="bg-gray-100 !py-3 !px-2 !pb-0">
         <el-main class="flex-1 bg-white">

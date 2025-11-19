@@ -4,39 +4,13 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  // font-family:
-  //   'Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC',
-  //   'WenQuanYi Micro Hei', sans-serif;
-
-  // ::-webkit-scrollbar {
-  //   width: 6px;
-  //   height: 6px;
-  //   background-color: transparent;
-  // }
-
-  // ::-webkit-scrollbar-button {
-  //   display: none;
-  // }
-
-  // ::-webkit-scrollbar-track {
-  //   background-color: transparent;
-  // }
-
-  // ::-webkit-scrollbar-thumb {
-  //   border-radius: 40px;
-  //   background-color: rgba(144, 147, 153, 0.3);
-  //   cursor: pointer;
-
-  //   &:hover {
-  //     background: var(--el-scrollbar-bg-color);
-  //   }
-  // }
 }
 
 /* 设置所有元素和伪元素的盒子模型为 border-box */
 *,
 *::before,
 *::after {
+  border-color: #eaeaea;
   box-sizing: border-box;
 }
 
@@ -45,12 +19,3 @@ body {
     z-index: 9999 !important;
   }
 }
-
-// .plus-table {
-//   display: flex;
-//   flex-direction: column;
-
-//   .el-table {
-//     flex: 1;
-//   }
-// }

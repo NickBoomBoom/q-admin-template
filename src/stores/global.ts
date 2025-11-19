@@ -145,8 +145,13 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
   }
 
   function initMenus() {
+    // 避免重复初始化
+    if (menus.value.length > 0) {
+      return
+    }
+
     if (user.value.isAdmin) {
-      menus.value = menuRoutes
+      menus.value = [...menuRoutes]
     } else {
       menus.value = filterRoutes(menuRoutes)
     }
@@ -158,13 +163,30 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
       const { children, path } = t
       const curPath = `${prePath}/${path}`
 
-      const isPass =
-        checkPermission({
-          path: curPath
-        }) || isUrl(path)
-      if (isPass) {
+      // 如果是URL链接，直接通过
+      if (isUrl(path)) {
         res.push(t)
+        return
+      }
+
+      // 检查权限
+      const hasPermission = checkPermission({
+        path: curPath
+      })
+
+      if (hasPermission) {
+        if (children?.length) {
+          const _child = filterRoutes(children, curPath)
+          const obj = {
+            ...t,
+            children: _child
+          }
+          res.push(obj)
+        } else {
+          res.push(t)
+        }
       } else if (children?.length) {
+        // 如果父路由没有权限，但子路由有权限，仍然保留父路由结构
         const _child = filterRoutes(children, curPath)
         if (_child.length) {
           const obj = {
@@ -258,11 +280,13 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
         globalService.$closeTag.next(route.fullPath)
         if (isCurrentRouteExist) {
         } else {
-          router.push({
-            name: nextTag.name as string,
-            params: nextTag.params,
-            query: nextTag.query
-          })
+          if (nextTag) {
+            router.push({
+              name: nextTag.name as string,
+              params: nextTag.params,
+              query: nextTag.query
+            })
+          }
         }
 
         break

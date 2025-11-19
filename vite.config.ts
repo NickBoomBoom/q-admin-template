@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import { plugins, alias } from './build'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins,
   resolve: {
@@ -12,17 +11,17 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        target: 'xxxx',
+        target: process.env.VITE_API_BASE_URL || 'http://localhost:3000',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/assets/scss/element-variables.scss" as *;`
+      }
+    }
   }
-  // css: {
-  //   preprocessorOptions: {
-  //     scss: {
-  //       additionalData: `@use "@/assets/scss/element-variables.scss" as *;`
-  //     }
-  //   }
-  // }
 })

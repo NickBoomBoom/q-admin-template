@@ -12,13 +12,14 @@ export const plugins = [
     dts: './src/types/auto-import.d.ts',
     imports: ['vue', 'vue-router', 'pinia'],
     dirs: ['./src/stores', './src/services', './src/utils', './src/utils', './src/api'],
-    resolvers: [ElementPlusResolver()]
-    // resolvers: [ElementPlusResolver({ importStyle: 'sass' })]
+    resolvers: [ElementPlusResolver({ importStyle: 'sass' })]
   }),
   Components({
     dirs: ['./src/components', './src/layouts'],
     dts: './src/types/components.d.ts',
-    resolvers: [ElementPlusResolver(), PlusProComponentsResolver()]
-    // resolvers: [ElementPlusResolver( { importStyle: 'sass' }), PlusProComponentsResolver()]
+    resolvers: [
+      ElementPlusResolver({ importStyle: 'sass' }),
+      PlusProComponentsResolver({ importStyle: 'scss' })
+    ]
   })
 ]

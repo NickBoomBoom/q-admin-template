@@ -11,6 +11,8 @@
 <script setup lang="ts">
 import { throttle } from 'lodash-es'
 import type { Subscription } from 'rxjs'
+import { globalService } from '@services/global.service'
+
 const keepAliveRef = ref()
 const route = useRoute()
 const router = useRouter()

@@ -1,2 +1,3 @@
-@use './preset.scss';
+@use './element-variables.scss'; // 先导入变量覆盖
+@use './preset.scss'; // 最后导入自定义样式
 @use './element.scss';

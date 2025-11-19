@@ -12,6 +12,7 @@
 <script setup lang="ts">
 import type { PlusColumn } from 'plus-pro-components'
 import { Md5 } from 'ts-md5'
+import { ElMessage } from 'element-plus'
 
 const show = ref(false)
 const globalStore = useGlobalStore()
@@ -69,7 +70,7 @@ const form: {
 }
 const model = ref({
   oldPassword: undefined,
-  nwePassword: undefined
+  newPassword: undefined
 })
 
 function open() {
@@ -81,8 +82,6 @@ function close() {
 }
 
 async function handleDialogConfirm(value: any) {
-  console.log(value)
-
   try {
     dialog.value.confirmLoading = true
     // TODO:修改密码api

@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-menu-collapse flex items-center justify-center cursor-pointer">
+  <el-button class="layout-menu-collapse flex items-center justify-center cursor-pointer" link>
     <el-icon
       size="26"
       class="collapse"
@@ -10,7 +10,7 @@
     >
       <div class="i-material-symbols-format-indent-decrease-rounded"></div>
     </el-icon>
-  </div>
+  </el-button>
 </template>
 <script setup lang="ts">
 const globalStore = useGlobalStore()
