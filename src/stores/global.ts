@@ -270,16 +270,24 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
         if (i >= 0) {
           tabs.value.splice(i, 1)
         }
-        const nextTag =
-          tabs.value[preTabIndex.value] ||
-          tabs.value[preTabIndex.value - 1] ||
-          tabs.value[i - 1] ||
-          tabs.value[tabs.value.length - 1]
         const currentRouteFullPath = router.currentRoute.value.fullPath
         const isCurrentRouteExist = tabs.value.some((t) => t.fullPath === currentRouteFullPath)
         globalService.$closeTag.next(route.fullPath)
-        if (isCurrentRouteExist) {
-        } else {
+
+        // 如果当前路由还存在，不需要跳转
+        if (!isCurrentRouteExist) {
+          // 找到当前路由在删除后的 tabs 中的位置
+          const currentIndex = tabs.value.findIndex((t) => t.fullPath === currentRouteFullPath)
+          let nextTag = null
+
+          if (currentIndex >= 0) {
+            // 如果当前路由还在（可能是从其他地方来的），保持当前路由
+            nextTag = tabs.value[currentIndex]
+          } else {
+            // 优先选择删除位置前一个，然后是后一个，最后是最后一个
+            nextTag = tabs.value[i - 1] || tabs.value[i] || tabs.value[tabs.value.length - 1]
+          }
+
           if (nextTag) {
             router.push({
               name: nextTag.name as string,
@@ -288,7 +296,6 @@ export const useGlobalStore = defineStore<'global', GlobalState>('global', () =>
             })
           }
         }
-
         break
     }
     storage.SessionStorage.set(TAB_KEY, tabs.value)

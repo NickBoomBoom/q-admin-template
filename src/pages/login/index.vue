@@ -1,7 +1,7 @@
 <template>
   <div class="login w-screen h-screen overflow-hidden">
     <div
-      class="w-160 h-70 mx-auto mt-1/4 flex shadow-xl shadow-black shadow-op-40 rounded-2xl overflow-hidden"
+      class="w-160 h-70 mx-auto mt-1/6 flex shadow-xl shadow-black shadow-op-40 rounded-2xl overflow-hidden"
     >
       <img
         height="100%"

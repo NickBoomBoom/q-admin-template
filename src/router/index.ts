@@ -19,7 +19,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  // console.log('before', to, from)
+  console.log('before', to, from)
   NProgress.start()
   setWindowTitle()
   const res = await setup(to, from)
@@ -32,7 +32,7 @@ router.afterEach(
     from: RouteLocationNormalized,
     failure: void | NavigationFailure
   ) => {
-    // console.log('after', to, from)
+    console.log('after', to, from)
     const isFail = isNavigationFailure(failure)
     const isRepeat = isNavigationFailure(failure, NavigationFailureType.duplicated)
     const isCancel = isNavigationFailure(

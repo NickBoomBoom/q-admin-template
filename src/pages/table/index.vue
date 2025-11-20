@@ -1,5 +1,6 @@
 <template>
   <div>
+    table
     <PlusTable :columns="tableConfig" :table-data="tableData" />
   </div>
 </template>
