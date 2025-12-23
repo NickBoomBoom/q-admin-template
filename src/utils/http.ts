@@ -4,10 +4,10 @@ import Axios, {
   type CustomParamsSerializer,
   type AxiosError,
   type AxiosResponse,
-} from 'axios';
-import { stringify } from 'qs';
-import NProgress from 'nprogress';
-import { ElMessage } from 'element-plus';
+} from "axios";
+import { stringify } from "qs";
+import NProgress from "nprogress";
+import { ElMessage } from "element-plus";
 
 const BASE_URL = import.meta.env.VITE_ROOT_API;
 
@@ -16,9 +16,9 @@ const defaultConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
   timeout: 10000,
   headers: {
-    Accept: 'application/json, text/plain, */*',
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest',
+    Accept: "application/json, text/plain, */*",
+    "Content-Type": "application/json",
+    "X-Requested-With": "XMLHttpRequest",
   },
   // 数组格式参数序列化（https://github.com/axios/axios/issues/5142）
   paramsSerializer: {
@@ -43,21 +43,21 @@ class Http {
         NProgress.start();
 
         /** 请求白名单，放置一些不需要`token`的接口（通过设置请求白名单，防止`token`过期后再请求造成的死循环问题） */
-        const whiteList = ['/auth/users/detail'];
+        const whiteList = ["/auth/users/detail"];
 
         return whiteList.some((url) => config?.url?.startsWith(url))
           ? config
           : new Promise((resolve) => {
               // TODO: 暂未接入
               config.headers = config.headers || {};
-              config.headers['token'] = 'test';
+              config.headers["token"] = "test";
               resolve(config);
             });
       },
       (error: AxiosError) => {
         this.handleMsg(error);
         return Promise.reject(error);
-      },
+      }
     );
   }
 
@@ -67,13 +67,12 @@ class Http {
     instance.interceptors.response.use(
       (response: AxiosResponse) => {
         NProgress.done();
-        const $config = response.config;
         const { data } = response;
         let result: any = null;
-        if (typeof data.err === 'number') {
+        if (typeof data.err === "number") {
           if (data.err > 0) {
             if ([401].includes(data.err)) {
-              alert('重新登录');
+              alert("重新登录");
               return;
             }
             const errMsg = `${data.err}: ${data.errMsg}`;
@@ -93,14 +92,14 @@ class Http {
         NProgress.done();
         this.handleMsg($error);
         return Promise.reject($error);
-      },
+      }
     );
   }
 
   public handleMsg(error: any) {
     ElMessage({
       message: error,
-      type: 'error',
+      type: "error",
     });
   }
 
@@ -109,7 +108,10 @@ class Http {
 
     Object.keys(obj).forEach((key) => {
       const item = obj[key];
-      if (typeof item === 'string' && (item === null || item === undefined || item === '')) {
+      if (
+        typeof item === "string" &&
+        (item === null || item === undefined || item === "")
+      ) {
       } else {
         res[key] = item;
       }
@@ -118,12 +120,12 @@ class Http {
   }
   /** 通用请求工具函数 */
   public request<T>(
-    method: 'post' | 'get' | 'patch' | 'delete' | 'put',
+    method: "post" | "get" | "patch" | "delete" | "put",
     url: string,
     param?: AxiosRequestConfig,
-    axiosConfig?: AxiosRequestConfig,
+    axiosConfig?: AxiosRequestConfig
   ): Promise<T> {
-    if (['get', 'delete'].includes(method) && param?.params) {
+    if (["get", "delete"].includes(method) && param?.params) {
       param.params = this.clearNullParam(param.params);
     }
     const config = {
@@ -150,32 +152,32 @@ class Http {
   public post<T, P>(
     url: string,
     params?: AxiosRequestConfig<P>,
-    config?: AxiosRequestConfig,
+    config?: AxiosRequestConfig
   ): Promise<T> {
-    return this.request<T>('post', url, params, config);
+    return this.request<T>("post", url, params, config);
   }
   public patch<T, P>(
     url: string,
     params?: AxiosRequestConfig<P>,
-    config?: AxiosRequestConfig,
+    config?: AxiosRequestConfig
   ): Promise<T> {
-    return this.request<T>('patch', url, params, config);
+    return this.request<T>("patch", url, params, config);
   }
   public delete<T, P>(
     url: string,
     params?: AxiosRequestConfig<P>,
-    config?: AxiosRequestConfig,
+    config?: AxiosRequestConfig
   ): Promise<T> {
-    return this.request<T>('delete', url, params, config);
+    return this.request<T>("delete", url, params, config);
   }
 
   /** 单独抽离的`get`工具函数 */
   public get<T, P>(
     url: string,
     params?: AxiosRequestConfig<P>,
-    config?: AxiosRequestConfig,
+    config?: AxiosRequestConfig
   ): Promise<T> {
-    return this.request<T>('get', url, params, config);
+    return this.request<T>("get", url, params, config);
   }
 }
 

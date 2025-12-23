@@ -5,21 +5,24 @@
       'px-2': !isShowArrow,
     }"
   >
-    <i
+    <div
       v-if="isShowArrow"
       @click="handleScrollMove('l')"
-      class="i-material-symbols-arrow-back-ios-new-rounded w-5 flex-shrink-0 h-full text-xl cursor-pointer"
-    />
-    <el-scrollbar ref="scrollbarRef" class="flex-1">
+      class="w-6 flex-shrink-0 h-full cursor-pointer flex items-center justify-center hover:bg-gray-50"
+    >
+      <div class="i-material-symbols-arrow-back-ios-new-rounded" />
+    </div>
+
+    <el-scrollbar ref="scrollbarRef" noresize class="flex-1">
       <div class="flex flex-nowrap">
         <div
           v-for="item in tabs"
           :key="item.fullPath"
-          class="layout-tab-item h-8 flex shrink-0 items-center text-sm px-2 py-1 !ml-0 cursor-pointer border b-solid b-1"
+          class="layout-tab-item rounded-t-3 h-8 flex shrink-0 items-center text-sm px-2 py-1 !ml-0 cursor-pointer border b-solid b-1"
           :class="[
             isCurrent(item)
               ? 'active bg-primary text-white b-primary'
-              : 'hover:bg-primary/30 hover:text-white hover:border-primary/30',
+              : 'hover:bg-primary/30 hover:text-white hover:border-primary/30  ',
           ]"
           @click.self="handleTap(item)"
         >
@@ -39,36 +42,35 @@
         </div>
       </div>
     </el-scrollbar>
-    <i
+    <div
       v-if="isShowArrow"
       @click="handleScrollMove('r')"
-      class="i-material-symbols-arrow-forward-ios-rounded w-5 flex-shrink-0 h-full text-xl cursor-pointer"
-    />
+      class="w-6 flex-shrink-0 h-full cursor-pointer flex items-center justify-center hover:bg-gray-50"
+    >
+      <div class="i-material-symbols-arrow-forward-ios-rounded" />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { globalEventBus } from "@/services/global.service";
+import { useResizeObserver } from "@vueuse/core";
+
 const route = useRoute();
 const router = useRouter();
 const tabStore = useTabStore();
 const { tabs } = storeToRefs(tabStore);
 const scrollbarRef = ref();
 const isShowArrow = ref(false);
-
 const isOnlyOne = computed(() => {
   return tabs.value.length === 1;
 });
 
-watch(
-  tabs,
-  () => {
-    nextTick(checkShowArrow);
-  },
-  {
-    immediate: true,
-  }
-);
-
+onMounted(() => {
+  useResizeObserver(scrollbarRef.value.wrapRef, () => {
+    checkShowArrow();
+  });
+});
 function isCurrent(item: TAB_ITEM) {
   return item.fullPath === route.fullPath;
 }
@@ -78,7 +80,7 @@ function handleDeleteTag(r: TAB_ITEM) {
 }
 
 function handleRefreshTag(_r: TAB_ITEM) {
-  globalService.$refresh.next();
+  globalEventBus.emit("refresh");
 }
 
 function handleTap(r: TAB_ITEM) {
@@ -112,9 +114,5 @@ function handleScrollMove(type: "l" | "r") {
 <style scoped lang="scss">
 .layout-tab {
   box-shadow: 0px 4px 6px rgba(0, 21, 41, 0.1);
-
-  &-item {
-    border-radius: 0.25rem 0.25rem 0 0;
-  }
 }
 </style>

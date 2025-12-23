@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-base-header flex items-center pt-4 pb-2">
+  <div class="layout-base-header flex items-center py-3">
     <div class="flex items-center">
       <layout-menu-collapse />
       <layout-breadcrumb class="ml-2" />

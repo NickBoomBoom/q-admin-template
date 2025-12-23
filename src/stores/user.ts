@@ -1,11 +1,12 @@
 import type { RouteLocationNormalizedGeneric } from 'vue-router';
 import { storage } from 'utils94';
 import { ElNotification } from 'element-plus';
+import type { UserStore } from './types';
 
 const TOKEN_KEY = import.meta.env.VITE_TOKEN_KEY;
 const localToken = storage.LocalStorage.get(TOKEN_KEY);
 
-export const useUserStore = defineStore('user', () => {
+export const useUserStore = defineStore('user', (): UserStore => {
   const user = ref<User>({
     id: 0,
     token: '',

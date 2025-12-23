@@ -1,10 +1,10 @@
-import { Subject } from 'rxjs';
+import mitt from "mitt";
 
-class GlobalService {
-  $refresh = new Subject<void>();
-  $closeTag = new Subject<string>();
-  $closeAllTag = new Subject<void>();
-  $pageScroll = new Subject<PageScroll>();
-}
+export type MittEvents = {
+  refresh: void;
+  closeTag: string;
+  closeAllTag: void;
+  pageScroll: PageScroll;
+};
 
-export const globalService = new GlobalService();
+export const globalEventBus = mitt<MittEvents>();

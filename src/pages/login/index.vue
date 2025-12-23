@@ -26,66 +26,67 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { PlusColumn } from 'plus-pro-components'
-const userStore = useUserStore()
-const route = useRoute()
-const router = useRouter()
+import type { PlusColumn } from "plus-pro-components";
+const userStore = useUserStore();
+const route = useRoute();
+const router = useRouter();
 const form = ref<{
-  columns: PlusColumn[]
-  rules: any
-  model: any
-  loading: boolean
+  columns: PlusColumn[];
+  rules: any;
+  model: any;
+  loading: boolean;
 }>({
   loading: false,
   model: {
-    username: 'admin',
-    password: '123456'
+    username: "admin",
+    password: "123456",
   },
   rules: {
     username: [
       {
         required: true,
-        message: '请输入账号'
-      }
+        message: "请输入账号",
+      },
     ],
     password: [
       {
         required: true,
-        message: '请输入密码'
-      }
-    ]
+        message: "请输入密码",
+      },
+    ],
   },
   columns: [
     {
-      label: '账号',
-      prop: 'username'
+      label: "账号",
+      prop: "username",
     },
     {
-      label: '密码',
-      prop: 'password',
+      label: "密码",
+      prop: "password",
       fieldProps: {
-        type: 'password',
-        showPassword: true
-      }
-    }
-  ]
-})
+        type: "password",
+        showPassword: true,
+      },
+    },
+  ],
+});
 async function login() {
-  form.value.loading = true
-  const res = await userStore.login(form.value.model)
+  form.value.loading = true;
+  const res: any = await userStore.login(form.value.model);
   const {
-    query: { redirect }
-  } = route
+    query: { redirect },
+  } = route;
   if (redirect) {
-    window.location.replace(redirect as string)
+    window.location.replace(redirect as string);
   } else {
-    router.replace(res)
+    router.replace(res);
   }
-  form.value.loading = false
+  form.value.loading = false;
 }
 </script>
 <style scoped lang="scss">
 .login {
-  background: url('https://pic.imgdb.cn/item/66ad1df0d9c307b7e9bbfbd4.jpg') no-repeat center/cover;
+  background: url("https://pic.imgdb.cn/item/66ad1df0d9c307b7e9bbfbd4.jpg")
+    no-repeat center/cover;
 }
 </style>

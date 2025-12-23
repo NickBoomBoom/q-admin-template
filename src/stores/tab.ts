@@ -1,11 +1,12 @@
-import type { RouteLocationNormalized } from 'vue-router';
-import { storage } from 'utils94';
-import router from '@/router';
-import { globalService } from '@/services/global.service';
+import type { RouteLocationNormalized } from "vue-router";
+import { storage } from "utils94";
+import router from "@/router";
+import { globalEventBus } from "@/services/global.service";
+import type { TabStore } from "./types";
 
 const TAB_KEY = import.meta.env.VITE_TAB_KEY;
 
-export const useTabStore = defineStore('tab', () => {
+export const useTabStore = defineStore("tab", (): TabStore => {
   const tabs = ref<TAB_ITEM[]>(storage.SessionStorage.get(TAB_KEY) || []);
 
   /**
@@ -27,7 +28,7 @@ export const useTabStore = defineStore('tab', () => {
   function removeTab(route: RouteLocationNormalized | TAB_ITEM): boolean {
     // 保护最后一个标签页
     if (tabs.value.length === 1) {
-      console.warn('已经是最后一个 tab 了,禁止关闭');
+      console.warn("已经是最后一个 tab 了,禁止关闭");
       return false;
     }
 
@@ -40,7 +41,7 @@ export const useTabStore = defineStore('tab', () => {
     tabs.value.splice(index, 1);
 
     // 通知其他组件
-    globalService.$closeTag.next(route.fullPath);
+    globalEventBus.emit("closeAllTag", route.fullPath);
 
     // 导航到下一个标签页
     navigateAfterRemove(index, route.fullPath);
@@ -95,7 +96,7 @@ export const useTabStore = defineStore('tab', () => {
   function clearTabs() {
     tabs.value = [];
     storage.SessionStorage.remove(TAB_KEY);
-    globalService.$closeAllTag.next();
+    globalEventBus.emit("closeAllTag");
   }
 
   return {

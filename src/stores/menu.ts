@@ -1,8 +1,9 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { menuRoutes } from '@/router/routes';
 import { isUrl } from '@/utils/verification';
+import type { MenuStore } from './types';
 
-export const useMenuStore = defineStore('menu', () => {
+export const useMenuStore = defineStore('menu', (): MenuStore => {
   const menus = ref<RouteRecordRaw[]>([]);
   const isCollapse = ref(false);
 
