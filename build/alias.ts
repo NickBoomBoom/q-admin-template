@@ -1,5 +1,4 @@
-
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from 'node:url';
 
 export const alias = {
   '@': fileURLToPath(new URL('../src', import.meta.url)),
@@ -10,4 +9,4 @@ export const alias = {
   '@layouts': fileURLToPath(new URL('../src/layouts', import.meta.url)),
   '@services': fileURLToPath(new URL('../src/services', import.meta.url)),
   '@stores': fileURLToPath(new URL('../src/stores', import.meta.url)),
-}
+};

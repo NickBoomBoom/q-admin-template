@@ -1,1 +1,1 @@
-import './nprogress'
+import './nprogress';

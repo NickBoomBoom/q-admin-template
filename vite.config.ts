@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite'
-import { plugins, alias } from './build'
+import { defineConfig } from 'vite';
+import { plugins, alias } from './build';
 
 export default defineConfig({
   plugins,
   resolve: {
-    alias
+    alias,
   },
   server: {
     port: 4399,
@@ -13,15 +13,15 @@ export default defineConfig({
       '/api': {
         target: process.env.VITE_API_BASE_URL || 'http://localhost:3000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/assets/scss/element-variables.scss" as *;`
-      }
-    }
-  }
-})
+        additionalData: `@use "@/assets/scss/element-variables.scss" as *;`,
+      },
+    },
+  },
+});

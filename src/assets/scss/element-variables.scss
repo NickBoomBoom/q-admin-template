@@ -2,19 +2,19 @@
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
   $colors: (
     'primary': (
-      'base': rgb(250, 112, 46, 1)
+      'base': rgb(250, 112, 46, 1),
     ),
     'success': (
-      'base': rgb(67, 147, 108, 1)
+      'base': rgb(67, 147, 108, 1),
     ),
     'warning': (
-      'base': rgb(252, 200, 0, 1)
+      'base': rgb(252, 200, 0, 1),
     ),
     'danger': (
-      'base': rgb(233, 72, 62, 1)
+      'base': rgb(233, 72, 62, 1),
     ),
     'error': (
-      'base': rgb(233, 72, 62, 1)
-    )
+      'base': rgb(233, 72, 62, 1),
+    ),
   )
 );
