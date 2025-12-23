@@ -125,9 +125,9 @@ class Http {
     param?: AxiosRequestConfig,
     axiosConfig?: AxiosRequestConfig
   ): Promise<T> {
-    if (["get", "delete"].includes(method) && param?.params) {
-      param.params = this.clearNullParam(param.params);
-    }
+    // if (["get"].includes(method) && param?.params) {
+    //   param.params = this.clearNullParam(param.params);
+    // }
     const config = {
       method,
       url,
