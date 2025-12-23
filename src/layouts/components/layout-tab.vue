@@ -26,7 +26,9 @@
           ]"
           @click.self="handleTap(item)"
         >
-          {{ item.query.t || item.meta.title }}
+          <span class="mr-1">
+            {{ item.query.t || item.meta.title }}
+          </span>
           <template v-if="isCurrent(item)">
             <div
               class="i-material-symbols-refresh ml-1 text-xl"
