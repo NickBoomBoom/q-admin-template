@@ -11,12 +11,11 @@
 
 <script setup lang="ts">
 import type { PlusColumn } from 'plus-pro-components'
-import { Md5 } from 'ts-md5'
 import { ElMessage } from 'element-plus'
 
 const show = ref(false)
-const globalStore = useGlobalStore()
-const { user } = storeToRefs(globalStore)
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
 const dialog = ref({
   title: '修改密码',
   width: '400px',
@@ -90,7 +89,7 @@ async function handleDialogConfirm(value: any) {
     //   newPassword: Md5.hashStr(value.newPassword)
     // })
     ElMessage.success('修改密码成功! 请重新登录!')
-    globalStore.logout()
+    userStore.logout()
     close()
   } catch (error) {
     console.error(error)

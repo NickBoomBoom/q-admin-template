@@ -31,8 +31,8 @@ const props = withDefaults(
     color: 'black'
   }
 )
-const globalStore = useGlobalStore()
-const { user } = storeToRefs(globalStore)
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
 const updatePwdDialogRef = ref()
 const name = computed(() => {
   const { nickname, username } = user.value
@@ -62,7 +62,7 @@ function handleUserCommand(command: number) {
       updatePwdDialogRef.value.open()
       break
     case UserCommand.LOGOUT:
-      globalStore.logout()
+      userStore.logout()
       break
   }
 }

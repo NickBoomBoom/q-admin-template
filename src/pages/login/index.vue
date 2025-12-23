@@ -27,7 +27,7 @@
 </template>
 <script setup lang="ts">
 import type { PlusColumn } from 'plus-pro-components'
-const globalStore = useGlobalStore()
+const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
 const form = ref<{
@@ -72,7 +72,7 @@ const form = ref<{
 })
 async function login() {
   form.value.loading = true
-  const res = await globalStore.login(form.value.model)
+  const res = await userStore.login(form.value.model)
   const {
     query: { redirect }
   } = route

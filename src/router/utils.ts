@@ -6,9 +6,9 @@ export function isWhiteList(name: string, path: string) {
 }
 
 export function setWindowTitle(to?: RouteLocationNormalized) {
-  const globalStore = useGlobalStore();
-  const sysTitle = globalStore.systemConfig.title;
-  let windowTitle = globalStore.systemConfig.title;
+  const configStore = useConfigStore();
+  const sysTitle = configStore.systemConfig.title;
+  let windowTitle = configStore.systemConfig.title;
   if (to) {
     const {
       meta: { title },

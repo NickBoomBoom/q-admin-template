@@ -11,6 +11,8 @@
   </div>
 </template>
 <script setup lang="ts">
-const globalStore = useGlobalStore()
-const { isCollapse, systemConfig } = storeToRefs(globalStore)
+const menuStore = useMenuStore()
+const configStore = useConfigStore()
+const { isCollapse } = storeToRefs(menuStore)
+const { systemConfig } = storeToRefs(configStore)
 </script>

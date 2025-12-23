@@ -1,5 +1,6 @@
+import type { App } from "vue";
 export default {
-  install(app: any) {
+  install(app: App) {
     // app.directive('height', height)
   },
 };

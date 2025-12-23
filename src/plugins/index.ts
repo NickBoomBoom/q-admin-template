@@ -1,1 +1,2 @@
-import './nprogress';
+import "./nprogress";
+export * from "./pinia";

@@ -30,12 +30,12 @@
 import type { RouteRecordRaw } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
-const globalStore = useGlobalStore()
+const menuStore = useMenuStore()
 const breadcrumb = ref<RouteRecordRaw[]>([])
 
 watch(
   route,
-  (v: any) => {
+  () => {
     check()
   },
   {
@@ -44,7 +44,7 @@ watch(
 )
 
 function check() {
-  breadcrumb.value = globalStore.getBreadcrumb(route.name as string)
+  breadcrumb.value = menuStore.getBreadcrumb(route.name as string)
 }
 
 function handleItem(item: RouteRecordRaw) {

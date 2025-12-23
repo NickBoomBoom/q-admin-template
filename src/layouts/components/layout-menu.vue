@@ -16,9 +16,9 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const globalStore = useGlobalStore()
+const menuStore = useMenuStore()
 const menuRef = ref()
-const { menus, isCollapse } = storeToRefs(globalStore)
+const { menus, isCollapse } = storeToRefs(menuStore)
 const defaultActive = ref<string>(parsePath(route.fullPath))
 const defaultOpends = ref<string[]>([parsePath(route.fullPath)])
 

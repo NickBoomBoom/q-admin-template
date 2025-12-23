@@ -6,6 +6,6 @@
   ></div>
 </template>
 <script setup lang="ts">
-const globalStore = useGlobalStore()
-const { systemConfig } = storeToRefs(globalStore)
+const configStore = useConfigStore()
+const { systemConfig } = storeToRefs(configStore)
 </script>

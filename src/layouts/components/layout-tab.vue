@@ -2,7 +2,7 @@
   <div
     class="layout-tab !h-8 flex items-center"
     :class="{
-      'px-2': !isShowArrow
+      'px-2': !isShowArrow,
     }"
   >
     <i
@@ -19,7 +19,7 @@
           :class="[
             isCurrent(item)
               ? 'active bg-primary text-white b-primary'
-              : 'hover:bg-primary/60 hover:text-white hover:border-primary/60'
+              : 'hover:bg-primary/30 hover:text-white hover:border-primary/30',
           ]"
           @click.self="handleTap(item)"
         >
@@ -48,64 +48,64 @@
 </template>
 
 <script lang="ts" setup>
-const route = useRoute()
-const router = useRouter()
-const globalStore = useGlobalStore()
-const { tabs } = storeToRefs(globalStore)
-const scrollbarRef = ref()
-const isShowArrow = ref(false)
+const route = useRoute();
+const router = useRouter();
+const tabStore = useTabStore();
+const { tabs } = storeToRefs(tabStore);
+const scrollbarRef = ref();
+const isShowArrow = ref(false);
 
 const isOnlyOne = computed(() => {
-  return tabs.value.length === 1
-})
+  return tabs.value.length === 1;
+});
 
 watch(
   tabs,
   () => {
-    nextTick(checkShowArrow)
+    nextTick(checkShowArrow);
   },
   {
-    immediate: true
+    immediate: true,
   }
-)
+);
 
 function isCurrent(item: TAB_ITEM) {
-  return item.fullPath === route.fullPath
+  return item.fullPath === route.fullPath;
 }
 
 function handleDeleteTag(r: TAB_ITEM) {
-  globalStore.handleTab('delete', r)
+  tabStore.removeTab(r);
 }
 
-function handleRefreshTag(r: TAB_ITEM) {
-  globalService.$refresh.next()
+function handleRefreshTag(_r: TAB_ITEM) {
+  globalService.$refresh.next();
 }
 
 function handleTap(r: TAB_ITEM) {
   router.push({
     name: r.name!,
     params: r.params,
-    query: r.query
-  })
+    query: r.query,
+  });
 }
 
 function checkShowArrow() {
-  const { wrapRef } = scrollbarRef.value
-  const sw = wrapRef.scrollWidth
-  const { width } = wrapRef.getBoundingClientRect()
-  isShowArrow.value = sw > width + 2
+  const { wrapRef } = scrollbarRef.value;
+  const sw = wrapRef.scrollWidth;
+  const { width } = wrapRef.getBoundingClientRect();
+  isShowArrow.value = sw > width + 2;
 }
 
-function handleScrollMove(type: 'l' | 'r') {
-  const { wrapRef } = scrollbarRef.value
-  const { scrollLeft, scrollWidth } = wrapRef
-  const { width } = wrapRef.getBoundingClientRect()
+function handleScrollMove(type: "l" | "r") {
+  const { wrapRef } = scrollbarRef.value;
+  const { scrollLeft } = wrapRef;
+  const { width } = wrapRef.getBoundingClientRect();
 
-  const left = type === 'l' ? scrollLeft - width : scrollLeft + width
+  const left = type === "l" ? scrollLeft - width : scrollLeft + width;
   wrapRef.scrollTo({
     left,
-    behavior: 'smooth'
-  })
+    behavior: "smooth",
+  });
 }
 </script>
 

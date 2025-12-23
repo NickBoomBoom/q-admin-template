@@ -7,6 +7,6 @@
 const LayoutBase = defineAsyncComponent(() => import('./layout-base/index.vue'))
 const LayoutTop = defineAsyncComponent(() => import('./layout-top/index.vue'))
 
-const globalStore = useGlobalStore()
-const { systemConfig } = storeToRefs(globalStore)
+const configStore = useConfigStore()
+const { systemConfig } = storeToRefs(configStore)
 </script>

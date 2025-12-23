@@ -6,15 +6,15 @@
       :class="{
         rotate: isCollapse
       }"
-      @click="globalStore.toggleCollapse"
+      @click="menuStore.toggleCollapse"
     >
       <div class="i-material-symbols-format-indent-decrease-rounded"></div>
     </el-icon>
   </el-button>
 </template>
 <script setup lang="ts">
-const globalStore = useGlobalStore()
-const { isCollapse } = storeToRefs(globalStore)
+const menuStore = useMenuStore()
+const { isCollapse } = storeToRefs(menuStore)
 </script>
 <style lang="scss">
 .layout-menu-collapse {

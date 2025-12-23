@@ -26,34 +26,34 @@
 </template>
 
 <script setup lang="ts">
-const router = useRouter()
+const router = useRouter();
 const props = defineProps<{
-  menuList: any[]
-  lastPath?: string
-}>()
+  menuList: any[];
+  lastPath?: string;
+}>();
 
 const MenuList = defineAsyncComponent({
-  loader: () => import('@layouts/components/menu-list.vue')
-})
+  loader: () => import("@layouts/components/menu-list.vue"),
+});
 
 function getIndex(item: TAB_ITEM) {
-  const { fullPath, path } = item
+  const { fullPath, path } = item;
   if (fullPath) {
-    return fullPath
+    return fullPath;
   }
-  const arr = [props.lastPath, path].filter((t) => !!t)
-  return arr.join('/')
+  const arr = [props.lastPath, path].filter((t) => !!t);
+  return arr.join("/");
 }
 function handleSelect(row: any) {
-  const { path, name, query, params } = row
+  const { path, name, query, params } = row;
   if (isUrl(path)) {
-    window.open(path)
+    window.open(path);
   } else {
     router.push({
       name,
       query,
-      params
-    })
+      params,
+    });
   }
 }
 </script>
