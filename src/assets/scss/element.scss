@@ -1,4 +1,4 @@
-.el-card[size='small'] {
+.el-card[size="small"] {
   .el-card__header {
     padding: 4px 10px;
   }
@@ -8,7 +8,7 @@
   }
 }
 
-.el-tabs[size='small'] {
+.el-tabs[size="small"] {
   .el-tabs__nav-prev,
   .el-tabs__nav-next,
   .el-tabs__item {
@@ -32,7 +32,6 @@
 
 .el-tooltip__trigger {
   cursor: pointer;
-
   &:focus-visible {
     outline: unset;
   }

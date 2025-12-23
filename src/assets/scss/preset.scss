@@ -3,15 +3,56 @@ body {
   width: 100vw !important;
   margin: 0;
   padding: 0;
+  font-variant-numeric: tabular-nums;
   height: 100vh;
 }
 
-/* 设置所有元素和伪元素的盒子模型为 border-box */
 *,
 *::before,
 *::after {
   border-color: #eaeaea;
   box-sizing: border-box;
+  scrollbar-color: unset !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 4px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 4px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: rgba(144, 147, 153, 0.3);
+  cursor: grab;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: rgba(144, 147, 153, 0.3);
+  cursor: grab;
 }
 
 #nprogress {
