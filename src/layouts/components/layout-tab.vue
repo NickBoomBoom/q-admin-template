@@ -24,7 +24,7 @@
               ? 'active bg-primary text-white b-primary'
               : 'hover:bg-primary/30 hover:text-white hover:border-primary/30  ',
           ]"
-          @click.self="handleTap(item)"
+          @click="handleTap(item)"
         >
           <span class="mr-1">
             {{ item.query.t || item.meta.title }}
@@ -32,14 +32,14 @@
           <template v-if="isCurrent(item)">
             <div
               class="i-material-symbols-refresh ml-1 text-xl"
-              @click.self="handleRefreshTag(item)"
+              @click.stop="handleRefreshTag(item)"
             ></div>
           </template>
 
           <div
             v-if="!isOnlyOne"
             class="i-material-symbols-close-rounded text-xl"
-            @click.self="handleDeleteTag(item)"
+            @click.stop="handleDeleteTag(item)"
           ></div>
         </div>
       </div>
@@ -86,6 +86,7 @@ function handleRefreshTag(_r: TAB_ITEM) {
 }
 
 function handleTap(r: TAB_ITEM) {
+  console.log(5555, r);
   router.push({
     name: r.name!,
     params: r.params,

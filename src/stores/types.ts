@@ -1,4 +1,5 @@
-import type { RouteRecordRaw, RouteLocationNormalizedGeneric } from 'vue-router';
+import type { MenuItem } from "@/config/menus";
+import type { RouteLocationNormalizedGeneric } from "vue-router";
 
 export type UserStore = {
   user: Ref<User>;
@@ -14,20 +15,22 @@ export type UserStore = {
 };
 
 export type MenuStore = {
-  menus: Ref<RouteRecordRaw[]>;
+  menus: Ref<MenuItem[]>;
   isCollapse: Ref<boolean>;
   toggleCollapse: (bol?: boolean) => void;
   initMenus: () => void;
   checkPermission: (to: { path: string }) => boolean;
-  getBreadcrumb: (routeName: string) => RouteRecordRaw[];
+  getBreadcrumb: (routeName: string) => MenuItem[];
   getVisitRoute: (to?: RouteLocationNormalizedGeneric) => unknown;
 };
 
 export type TabStore = {
   tabs: Ref<TAB_ITEM[]>;
-  addTab: (route: import('vue-router').RouteLocationNormalized | TAB_ITEM) => void;
+  addTab: (
+    route: import("vue-router").RouteLocationNormalized | TAB_ITEM
+  ) => void;
   removeTab: (
-    route: import('vue-router').RouteLocationNormalized | TAB_ITEM
+    route: import("vue-router").RouteLocationNormalized | TAB_ITEM
   ) => boolean;
   clearTabs: () => void;
 };

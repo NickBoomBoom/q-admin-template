@@ -1,18 +1,12 @@
 // 全局路由类型声明
 // https://router.vuejs.org/zh/guide/advanced/meta.html#typescript
-import 'vue-router';
+import "vue-router";
 export {};
-declare module 'vue-router' {
+declare module "vue-router" {
   interface RouteMeta {
     // 路由名称,动态路由可不声明
     title?: string;
-    // 是否隐藏在菜单栏上
-    hideInMenus?: boolean;
-    // 外部链接
-    link?: string;
     // keepalive 默认全开,通过 full path 当 key; 关闭请设置为true
     noCache?: boolean;
-    // icon  统一使用:https://icones.js.org/collection/mdi 中的 icon
-    icon?: string;
   }
 }

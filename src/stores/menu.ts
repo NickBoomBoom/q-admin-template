@@ -1,14 +1,13 @@
-import type { RouteRecordRaw } from 'vue-router';
-import { menuRoutes } from '@/router/routes';
-import { isUrl } from '@/utils/verification';
-import type { MenuStore } from './types';
+import { isUrl } from "@/utils/verification";
+import type { MenuStore } from "./types";
+import { MENUS, type MenuItem } from "@/config/menus";
 
-export const useMenuStore = defineStore('menu', (): MenuStore => {
-  const menus = ref<RouteRecordRaw[]>([]);
+export const useMenuStore = defineStore("menu", (): MenuStore => {
+  const menus = ref<MenuItem[]>([]);
   const isCollapse = ref(false);
 
   function toggleCollapse(bol?: boolean) {
-    isCollapse.value = typeof bol === 'boolean' ? bol : !isCollapse.value;
+    isCollapse.value = typeof bol === "boolean" ? bol : !isCollapse.value;
   }
 
   function initMenus() {
@@ -21,20 +20,20 @@ export const useMenuStore = defineStore('menu', (): MenuStore => {
     }
 
     if (user.value.isAdmin) {
-      menus.value = [...menuRoutes];
+      menus.value = MENUS;
     } else {
-      menus.value = filterRoutes(menuRoutes);
+      menus.value = filterRoutes(MENUS);
     }
   }
 
   function filterRoutes(
-    routes: RouteRecordRaw[],
-    prePath: string = '',
-    userStore?: ReturnType<typeof useUserStore>,
-  ): RouteRecordRaw[] {
+    routes: MenuItem[],
+    prePath: string = "",
+    userStore?: ReturnType<typeof useUserStore>
+  ): MenuItem[] {
     const _userStore = userStore || useUserStore();
 
-    const res: RouteRecordRaw[] = [];
+    const res: MenuItem[] = [];
     routes.forEach((t) => {
       const { children, path } = t;
       const curPath = `${prePath}/${path}`;
@@ -76,7 +75,7 @@ export const useMenuStore = defineStore('menu', (): MenuStore => {
 
   function _checkPermission(
     path: string,
-    userStore?: ReturnType<typeof useUserStore>,
+    userStore?: ReturnType<typeof useUserStore>
   ): boolean {
     const _userStore = userStore || useUserStore();
     const { user } = storeToRefs(_userStore);
@@ -91,7 +90,7 @@ export const useMenuStore = defineStore('menu', (): MenuStore => {
     return _checkPermission(to.path);
   }
 
-  function getBreadcrumb(routeName: string): RouteRecordRaw[] {
+  function getBreadcrumb(routeName: string): MenuItem[] {
     const target = menus.value.find((t) => t.name === routeName);
     if (target) {
       return [target];
@@ -99,15 +98,15 @@ export const useMenuStore = defineStore('menu', (): MenuStore => {
     return _findBreadcrumb(menus.value, routeName);
   }
 
-  function _findBreadcrumb(arr: RouteRecordRaw[], routeName: string): RouteRecordRaw[] {
+  function _findBreadcrumb(arr: MenuItem[], routeName: string): MenuItem[] {
     for (const item of arr) {
       const { children } = item;
       if (children?.length) {
-        const target = children.find((t: RouteRecordRaw) => t.name === routeName);
+        const target = children.find((t: MenuItem) => t.name === routeName);
         if (target) {
           return [item, target];
         }
-        const result = _findBreadcrumb(children as RouteRecordRaw[], routeName);
+        const result = _findBreadcrumb(children as MenuItem[], routeName);
         if (result.length > 0) {
           return [item, ...result];
         }
@@ -116,8 +115,10 @@ export const useMenuStore = defineStore('menu', (): MenuStore => {
     return [];
   }
 
-  function getVisitRoute(to?: import('vue-router').RouteLocationNormalizedGeneric): unknown {
-    if (to && to.path !== '/') {
+  function getVisitRoute(
+    to?: import("vue-router").RouteLocationNormalizedGeneric
+  ): unknown {
+    if (to && to.path !== "/") {
       return {
         name: to.name as string,
         params: to.params,
@@ -137,7 +138,7 @@ export const useMenuStore = defineStore('menu', (): MenuStore => {
     if (firstChildRoute?.children?.[0]) {
       return { name: firstChildRoute.children[0].name };
     }
-    throw new Error('未配置路由');
+    throw new Error("未配置路由");
   }
 
   return {

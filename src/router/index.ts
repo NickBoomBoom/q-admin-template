@@ -7,7 +7,7 @@ import {
   type RouteLocationNormalized,
   type RouteLocationNormalizedGeneric,
 } from "vue-router";
-import { getRoutes } from "./routes";
+import { routes } from "./routes";
 import NProgress from "nprogress";
 import { isWhiteList, setWindowTitle } from "./utils";
 
@@ -15,7 +15,7 @@ const BASE_URL = import.meta.env.BASE_URL;
 
 const router = createRouter({
   history: createWebHistory(BASE_URL),
-  routes: getRoutes(),
+  routes,
 });
 
 router.beforeEach(async (to, from, next) => {
