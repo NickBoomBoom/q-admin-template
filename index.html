@@ -10,76 +10,18 @@
 
 <body>
   <div id="app">
-    <div class="global-loading">
-      <div class="global-loading-container">
-        <div>
-        </div>
-        <span class="global-loading-container__text">
-          载入中...
-        </span>
-      </div>
+    <svg width="60" height="60" viewBox="0 0 60 60"
+      style="position: fixed; top:50%; left:50%; transform: translate(-50%,-50%);">
+      <circle cx="30" cy="30" r="24" fill="none" stroke="var(--el-color-primary)" stroke-width="4"
+        stroke-linecap="round" stroke-dasharray="110 160">
+        <animateTransform attributeName="transform" type="rotate" from="0 30 30" to="360 30 30" dur="1s"
+          repeatCount="indefinite" />
+      </circle>
 
-    </div>
-    <style type="text/css">
-      @keyframes global-loading-container {
-        0% {
-          transform: translate(-50%, -50%) rotate(0deg);
-        }
-
-        100% {
-          transform: translate(-50%, -50%) rotate(360deg);
-        }
-      }
-
-      .global-loading-container div {
-        position: absolute;
-        width: 60px;
-        height: 60px;
-        border: 10px solid var(--el-color-primary);
-        border-top-color: transparent;
-        border-radius: 50%;
-      }
-
-      .global-loading-container div {
-        animation: global-loading-container 1s linear infinite;
-        top: 50px;
-        left: 50px
-      }
-
-      .global-loading {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100px;
-        height: 100px;
-        display: inline-block;
-        overflow: hidden;
-        background: #ffffff;
-      }
-
-      .global-loading-container {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        transform: translateZ(0) scale(1);
-        backface-visibility: hidden;
-        transform-origin: 0 0;
-        /* see note above */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .global-loading-container div {
-        box-sizing: content-box;
-      }
-
-      .global-loading-container__text {
-        font-size: 14px;
-        font-weight: 400;
-      }
-    </style>
+      <text x="30" y="30" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="var(--el-color-primary)">
+        载入中
+      </text>
+    </svg>
   </div>
 
   <script type="module" src="/src/main.ts"></script>
